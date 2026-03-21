@@ -209,7 +209,7 @@ $$a = \left(\frac{\mu}{n^2}\right)^{1/3}, \qquad n = \frac{2\pi}{T}$$
 
 The orbital speed at radius $r$ follows the vis-viva equation:
 
-$$v = \sqrt{\mu\!\left(\frac{2}{r} - \frac{1}{a}\right)}$$
+$$v = \sqrt{\mu\left(\frac{2}{r} - \frac{1}{a}\right)}$$
 
 ### SGP4 Perturbation Model
 
@@ -226,9 +226,9 @@ The J2 perturbing acceleration in ECI is:
 
 $$\mathbf{a}_{J_2} = -\frac{3\mu J_2 R_\oplus^2}{2r^5}
 \begin{pmatrix}
-  x\!\left(1 - 5\tfrac{z^2}{r^2}\right)\\
-  y\!\left(1 - 5\tfrac{z^2}{r^2}\right)\\
-  z\!\left(3 - 5\tfrac{z^2}{r^2}\right)
+   x\left(1 - 5\tfrac{z^2}{r^2}\right)\\
+   y\left(1 - 5\tfrac{z^2}{r^2}\right)\\
+   z\left(3 - 5\tfrac{z^2}{r^2}\right)
 \end{pmatrix}$$
 
 where $J_2 = 1.08263\times10^{-3}$ and $R_\oplus = 6378.137\ \text{km}$.
@@ -301,14 +301,14 @@ $$\{(t_k,\; \mathbf{r}_k)\}_{k=0}^{N-1}, \quad t_k = t_0 + k\cdot300\;\text{s}$$
 The feature vector combines orbital elements, physics-derived quantities, smooth
 angular encodings, and **finite-difference velocity**:
 
-$$\mathbf{e}_k = \bigl[
+$$\mathbf{e}_k = \left[
   \underbrace{i,\; \Omega,\; e,\; \omega,\; M_0,\; n}_{\text{6 Keplerian}},\;
-  \underbrace{\sin\!\tfrac{2\pi t_k}{T_\oplus},\; \cos\!\tfrac{2\pi t_k}{T_\oplus}}_{\text{diurnal}},\;
+   \underbrace{\sin\tfrac{2\pi t_k}{T_\oplus},\; \cos\tfrac{2\pi t_k}{T_\oplus}}_{\text{diurnal}},\;
   \underbrace{h_k,\; v_k,\; B^*,\; u_k}_{\text{4 physics}},\;
   \underbrace{x_k,\; y_k,\; z_k}_{\text{ECI position}},\;
   \underbrace{\sin u_k,\; \cos u_k,\; \sin i}_{\text{angular}},\;
   \underbrace{\dot{x}_k,\; \dot{y}_k,\; \dot{z}_k}_{\text{velocity}}
-\bigr]^\top \in \mathbb{R}^{21}$$
+\right]^\top \in \mathbb{R}^{21}$$
 
 where:
 - $h_k = \|\mathbf{r}_k\| - R_\oplus$ (altitude, km)
@@ -375,19 +375,19 @@ observations (e.g. the altitude minimum where drag is strongest).
 
 At each timestep $t$:
 
-$$\mathbf{f}_t = \sigma\!\bigl(W_f\,[\mathbf{h}_{t-1};\,\mathbf{x}_t] + \mathbf{b}_f\bigr)$$
+$$\mathbf{f}_t = \sigma\left(W_f\,[\mathbf{h}_{t-1};\,\mathbf{x}_t] + \mathbf{b}_f\right)$$
 (forget gate)
 
-$$\mathbf{i}_t = \sigma\!\bigl(W_i\,[\mathbf{h}_{t-1};\,\mathbf{x}_t] + \mathbf{b}_i\bigr)$$
+$$\mathbf{i}_t = \sigma\left(W_i\,[\mathbf{h}_{t-1};\,\mathbf{x}_t] + \mathbf{b}_i\right)$$
 (input gate)
 
-$$\tilde{\mathbf{c}}_t = \tanh\!\bigl(W_c\,[\mathbf{h}_{t-1};\,\mathbf{x}_t] + \mathbf{b}_c\bigr)$$
+$$\tilde{\mathbf{c}}_t = \tanh\left(W_c\,[\mathbf{h}_{t-1};\,\mathbf{x}_t] + \mathbf{b}_c\right)$$
 (candidate cell)
 
 $$\mathbf{c}_t = \mathbf{f}_t \odot \mathbf{c}_{t-1} + \mathbf{i}_t \odot \tilde{\mathbf{c}}_t$$
 (cell state)
 
-$$\mathbf{o}_t = \sigma\!\bigl(W_o\,[\mathbf{h}_{t-1};\,\mathbf{x}_t] + \mathbf{b}_o\bigr)$$
+$$\mathbf{o}_t = \sigma\left(W_o\,[\mathbf{h}_{t-1};\,\mathbf{x}_t] + \mathbf{b}_o\right)$$
 (output gate)
 
 $$\mathbf{h}_t = \mathbf{o}_t \odot \tanh(\mathbf{c}_t)$$
@@ -465,7 +465,7 @@ $$\theta_t = \theta_{t-1} - \frac{\eta}{\sqrt{\hat{v}_t}+\varepsilon}\,\hat{m}_t
 
 To prevent BPTT explosions:
 
-$$\mathbf{g}_t \leftarrow \mathbf{g}_t \cdot \min\!\left(1,\; \frac{\gamma}{\|\mathbf{g}_t\|_2}\right), \quad \gamma = 1.0$$
+$$\mathbf{g}_t \leftarrow \mathbf{g}_t \cdot \min\left(1,\; \frac{\gamma}{\|\mathbf{g}_t\|_2}\right), \quad \gamma = 1.0$$
 
 ---
 
@@ -499,7 +499,7 @@ where $T = 100$ decorrelated decision trees are grown via bootstrap aggregation 
 
 #### Variance Reduction
 
-$$\operatorname{Var}\!\left(\frac{1}{T}\sum_{t=1}^{T} f_t\right) = \sigma^2\!\left(\frac{1-\rho}{T} + \rho\right)$$
+$$\mathrm{Var}\left(\frac{1}{T}\sum_{t=1}^{T} f_t\right) = \sigma^2\left(\frac{1-\rho}{T} + \rho\right)$$
 
 where $\rho$ is the average pairwise tree correlation (reduced by random feature subsampling)
 and $\sigma^2$ is the individual tree variance.
@@ -518,12 +518,12 @@ and $\sigma^2$ is the individual tree variance.
 
 ### Training Loss (MSE on position delta, km²)
 
-$$\mathcal{L}_\text{MSE} = \frac{1}{N}\sum_{i=1}^{N}\bigl\|\Delta\mathbf{r}_i - \Delta\hat{\mathbf{r}}_i\bigr\|_2^2
-= \frac{1}{N}\sum_{i=1}^{N}\bigl[(\Delta x_i-\Delta\hat{x}_i)^2 + (\Delta y_i-\Delta\hat{y}_i)^2 + (\Delta z_i-\Delta\hat{z}_i)^2\bigr]$$
+$$\mathcal{L}_\text{MSE} = \frac{1}{N}\sum_{i=1}^{N}\left\|\Delta\mathbf{r}_i - \Delta\hat{\mathbf{r}}_i\right\|_2^2
+= \frac{1}{N}\sum_{i=1}^{N}\left[(\Delta x_i-\Delta\hat{x}_i)^2 + (\Delta y_i-\Delta\hat{y}_i)^2 + (\Delta z_i-\Delta\hat{z}_i)^2\right]$$
 
 Predicting the displacement $\Delta\mathbf{r}$ instead of the absolute position $\mathbf{r}$
-reduces the target range from $\sim\!14000\ \text{km}$ to $\sim\!4600\ \text{km}$, which
-lowers the initial loss by a factor of $\sim\!9$ and speeds convergence.
+reduces the target range from $\sim 14000\ \text{km}$ to $\sim 4600\ \text{km}$, which
+lowers the initial loss by a factor of $\sim 9$ and speeds convergence.
 
 ### Backpropagation Through Time (BPTT)
 
@@ -541,15 +541,15 @@ Position error is measured in **kilometres** after inverse scaling (Standard sca
 
 ### Root Mean Square Error (3-D)
 
-$$\text{RMSE} = \sqrt{\frac{1}{N}\sum_{i=1}^{N}\bigl\|\Delta\mathbf{r}_i - \Delta\hat{\mathbf{r}}_i\bigr\|_2^2}$$
+$$\text{RMSE} = \sqrt{\frac{1}{N}\sum_{i=1}^{N}\left\|\Delta\mathbf{r}_i - \Delta\hat{\mathbf{r}}_i\right\|_2^2}$$
 
 ### Mean Absolute Error (3-D)
 
-$$\text{MAE} = \frac{1}{N}\sum_{i=1}^{N}\bigl\|\Delta\mathbf{r}_i - \Delta\hat{\mathbf{r}}_i\bigr\|_1$$
+$$\text{MAE} = \frac{1}{N}\sum_{i=1}^{N}\left\|\Delta\mathbf{r}_i - \Delta\hat{\mathbf{r}}_i\right\|_1$$
 
 ### 95th-Percentile Error
 
-$$P_{95} = \text{percentile}_{95}\!\left(\bigl\{\|\Delta\mathbf{r}_i - \Delta\hat{\mathbf{r}}_i\|_2\bigr\}_{i=1}^N\right)$$
+$$P_{95} = \text{percentile}_{95}\left(\left\{\|\Delta\mathbf{r}_i - \Delta\hat{\mathbf{r}}_i\|_2\right\}_{i=1}^N\right)$$
 
 $P_{95}$ is the primary safety metric for collision avoidance: it captures the worst-case tail
 behaviour, which matters most operationally.
