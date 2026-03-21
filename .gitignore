@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+conda-env/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Model checkpoints
+*.pt
+*.pth
+*.pkl
+*.joblib
+
+# Results (generated artefacts – keep .gitkeep)
+results/*.gif
+results/*.png
+results/*.html
+
+# Data downloads (keep sample file)
+data/*.csv
+data/downloaded_*.txt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
