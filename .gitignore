@@ -27,7 +27,6 @@ conda-env/
 
 # Results (generated artefacts – keep .gitkeep)
 results/*.gif
-results/*.png
 results/*.html
 
 # Data downloads (keep sample file)
