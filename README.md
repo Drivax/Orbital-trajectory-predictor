@@ -373,25 +373,31 @@ observations (e.g. the altitude minimum where drag is strongest).
 
 #### LSTM Cell Equations
 
-At each timestep t :
+At each timestep $t$:
 
-$$\mathbf{f}_t = \sigma(W_f\,[\mathbf{h}_{t-1};\,\mathbf{x}_t] + \mathbf{b}_f)$$
-(forget gate)
+Forget gate:
 
-$$\mathbf{i}_t = \sigma(W_i\,[\mathbf{h}_{t-1};\,\mathbf{x}_t] + \mathbf{b}_i)$$
-(input gate)
+$$\mathbf{f}_t = \sigma\left(W_f\,[\mathbf{h}_{t-1};\,\mathbf{x}_t] + \mathbf{b}_f\right)$$
 
-$$\tilde{\mathbf{c}}_t = \tanh(W_c\,[\mathbf{h}_{t-1};\,\mathbf{x}_t] + \mathbf{b}_c)$$
-(candidate cell)
+Input gate:
+
+$$\mathbf{i}_t = \sigma\left(W_i\,[\mathbf{h}_{t-1};\,\mathbf{x}_t] + \mathbf{b}_i\right)$$
+
+Candidate cell:
+
+$$\tilde{\mathbf{c}}_t = \tanh\left(W_c\,[\mathbf{h}_{t-1};\,\mathbf{x}_t] + \mathbf{b}_c\right)$$
+
+Cell state:
 
 $$\mathbf{c}_t = \mathbf{f}_t \odot \mathbf{c}_{t-1} + \mathbf{i}_t \odot \tilde{\mathbf{c}}_t$$
-(cell state)
 
-$$\mathbf{o}_t = \sigma(W_o\,[\mathbf{h}_{t-1};\,\mathbf{x}_t] + \mathbf{b}_o)$$
-(output gate)
+Output gate:
+
+$$\mathbf{o}_t = \sigma\left(W_o\,[\mathbf{h}_{t-1};\,\mathbf{x}_t] + \mathbf{b}_o\right)$$
+
+Hidden state:
 
 $$\mathbf{h}_t = \mathbf{o}_t \odot \tanh(\mathbf{c}_t)$$
-(hidden state)
 
 The cell state path satisfies $\frac{\partial\mathbf{c}_t}{\partial\mathbf{c}_{t-1}} = \mathbf{f}_t$,
 which avoids the vanishing-gradient problem when $\mathbf{f}_t \approx \mathbf{1}$.
