@@ -399,8 +399,11 @@ Hidden state:
 
 $$\mathbf{h}_t = \mathbf{o}_t \odot \tanh(\mathbf{c}_t)$$
 
-The cell state path satisfies $\frac{\partial\mathbf{c}_t}{\partial\mathbf{c}_{t-1}} = \mathbf{f}_t$,
-which avoids the vanishing-gradient problem when $\mathbf{f}_t \approx \mathbf{1}$.
+The cell-state path satisfies:
+
+$$\frac{\partial \mathbf{c}_t}{\partial \mathbf{c}_{t-1}} = \mathbf{f}_t$$
+
+This avoids the vanishing-gradient problem when $\mathbf{f}_t \approx \mathbf{1}$.
 
 #### Temporal Attention
 
