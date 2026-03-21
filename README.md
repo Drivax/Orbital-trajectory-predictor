@@ -375,19 +375,19 @@ observations (e.g. the altitude minimum where drag is strongest).
 
 At each timestep $t$:
 
-$$\mathbf{f}_t = \sigma\left(W_f\,[\mathbf{h}_{t-1};\,\mathbf{x}_t] + \mathbf{b}_f\right)$$
+$$\mathbf{f}_t = \sigma(W_f\,[\mathbf{h}_{t-1};\,\mathbf{x}_t] + \mathbf{b}_f)$$
 (forget gate)
 
-$$\mathbf{i}_t = \sigma\left(W_i\,[\mathbf{h}_{t-1};\,\mathbf{x}_t] + \mathbf{b}_i\right)$$
+$$\mathbf{i}_t = \sigma(W_i\,[\mathbf{h}_{t-1};\,\mathbf{x}_t] + \mathbf{b}_i)$$
 (input gate)
 
-$$\tilde{\mathbf{c}}_t = \tanh\left(W_c\,[\mathbf{h}_{t-1};\,\mathbf{x}_t] + \mathbf{b}_c\right)$$
+$$\tilde{\mathbf{c}}_t = \tanh(W_c\,[\mathbf{h}_{t-1};\,\mathbf{x}_t] + \mathbf{b}_c)$$
 (candidate cell)
 
 $$\mathbf{c}_t = \mathbf{f}_t \odot \mathbf{c}_{t-1} + \mathbf{i}_t \odot \tilde{\mathbf{c}}_t$$
 (cell state)
 
-$$\mathbf{o}_t = \sigma\left(W_o\,[\mathbf{h}_{t-1};\,\mathbf{x}_t] + \mathbf{b}_o\right)$$
+$$\mathbf{o}_t = \sigma(W_o\,[\mathbf{h}_{t-1};\,\mathbf{x}_t] + \mathbf{b}_o)$$
 (output gate)
 
 $$\mathbf{h}_t = \mathbf{o}_t \odot \tanh(\mathbf{c}_t)$$
@@ -518,7 +518,7 @@ and $\sigma^2$ is the individual tree variance.
 
 ### Training Loss (MSE on position delta, km²)
 
-$$\mathcal{L}_\text{MSE} = \frac{1}{N}\sum_{i=1}^{N}\left\|\Delta\mathbf{r}_i - \Delta\hat{\mathbf{r}}_i\right\|_2^2
+$$\mathcal{L}_\text{MSE} = \frac{1}{N}\sum_{i=1}^{N}\|\Delta\mathbf{r}_i - \Delta\hat{\mathbf{r}}_i\|_2^2
 = \frac{1}{N}\sum_{i=1}^{N}\left[(\Delta x_i-\Delta\hat{x}_i)^2 + (\Delta y_i-\Delta\hat{y}_i)^2 + (\Delta z_i-\Delta\hat{z}_i)^2\right]$$
 
 Predicting the displacement $\Delta\mathbf{r}$ instead of the absolute position $\mathbf{r}$
@@ -541,15 +541,16 @@ Position error is measured in **kilometres** after inverse scaling (Standard sca
 
 ### Root Mean Square Error (3-D)
 
-$$\text{RMSE} = \sqrt{\frac{1}{N}\sum_{i=1}^{N}\left\|\Delta\mathbf{r}_i - \Delta\hat{\mathbf{r}}_i\right\|_2^2}$$
+$$\text{RMSE} = \sqrt{\frac{1}{N}\sum_{i=1}^{N}\|\Delta\mathbf{r}_i - \Delta\hat{\mathbf{r}}_i\|_2^2}$$
 
 ### Mean Absolute Error (3-D)
 
-$$\text{MAE} = \frac{1}{N}\sum_{i=1}^{N}\left\|\Delta\mathbf{r}_i - \Delta\hat{\mathbf{r}}_i\right\|_1$$
+$$\text{MAE} = \frac{1}{N}\sum_{i=1}^{N}\|\Delta\mathbf{r}_i - \Delta\hat{\mathbf{r}}_i\|_1$$
 
 ### 95th-Percentile Error
 
-$$P_{95} = \text{percentile}_{95}\left(\left\{\|\Delta\mathbf{r}_i - \Delta\hat{\mathbf{r}}_i\|_2\right\}_{i=1}^N\right)$$
+$$e_i = \|\Delta\mathbf{r}_i - \Delta\hat{\mathbf{r}}_i\|_2, \quad i=1,\dots,N$$
+$$P_{95} = \text{percentile}_{95}(e_1, e_2, \dots, e_N)$$
 
 $P_{95}$ is the primary safety metric for collision avoidance: it captures the worst-case tail
 behaviour, which matters most operationally.
