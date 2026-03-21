@@ -373,7 +373,7 @@ observations (e.g. the altitude minimum where drag is strongest).
 
 #### LSTM Cell Equations
 
-At each timestep $t$:
+At each timestep t :
 
 $$\mathbf{f}_t = \sigma(W_f\,[\mathbf{h}_{t-1};\,\mathbf{x}_t] + \mathbf{b}_f)$$
 (forget gate)
