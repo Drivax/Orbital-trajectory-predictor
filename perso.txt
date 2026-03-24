@@ -1,0 +1,69 @@
+ost 1
+
+Comment passe-t-on de 2 lignes de texte à une trajectoire satellite prédite ?
+
+Un satellite en orbite, c’est un objet qui “tombe” en permanence autour de la Terre sans jamais la toucher, grâce à sa vitesse.
+
+Dans ce projet, on part des données TLE (Two-Line Elements) : ce sont des “fiches d’identité orbitales” publiques.
+
+Pipeline simplifié :
+TLE -> propagation physique (SGP4) -> création de variables utiles -> modèle IA (LSTM + attention).
+
+Un peu de maths (accessible) :
+[
+\Delta \mathbf{r}(t+\Delta t)=\mathbf{r}(t+\Delta t)-\mathbf{r}(t), \quad \Delta t = 5\ \text{min}
+]
+En clair, le modèle apprend le “petit déplacement suivant” du satellite.
+
+Objectif :
+minimiser l’écart entre trajectoire réelle et trajectoire prédite.
+
+Image recommandée :
+post1_pipeline_donnees.png
+
+Post 2
+
+Trajectoire réelle vs trajectoire modélisée : que voit-on concrètement ?
+
+Sur une séquence d’orbite, on compare :
+
+la trajectoire “réelle” (issue du calcul orbital de référence),
+la trajectoire “prédite” par le modèle LSTM + attention.
+Le résultat est visuellement proche : la forme orbitale est bien suivie, et l’erreur reste contrôlée.
+
+Un peu de maths :
+[
+e(t)=\left|\mathbf{r}{\text{réel}}(t)-\mathbf{r}{\text{modèle}}(t)\right|_2
+]
+Cette norme mesure l’erreur instantanée en km.
+
+Pourquoi c’est important :
+si cette erreur est faible et stable, on peut mieux anticiper les positions futures.
+
+Image recommandée :
+post2_trajectoire_reel_vs_modele.png
+
+Post 3
+
+Résultats : où le modèle est bon, et où il peut progresser
+
+Sur le jeu de test actuel :
+
+RMSE ≈ 41.9 km
+MAE ≈ 37.7 km
+P95 ≈ 69.7 km
+Interprétation simple :
+
+la majorité des prédictions restent dans une erreur raisonnable,
+quelques cas plus difficiles tirent la queue de distribution vers le haut.
+Un peu de maths :
+[
+\mathrm{RMSE}=\sqrt{\mathrm{mean}\left((x_p-x_r)^2+(y_p-y_r)^2+(z_p-z_r)^2\right)}
+]
+Cette métrique pénalise davantage les grosses erreurs.
+
+Conclusion :
+la dynamique globale est bien captée, avec une base solide pour améliorer les horizons de prédiction plus longs.
+
+Image recommandée :
+post3_resume_resultats.png

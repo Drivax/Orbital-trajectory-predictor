@@ -155,10 +155,13 @@ def propagate_satellite(
     """Propagate a satellite with SGP4 and return a list of feature dicts.
 
     Each dict contains:
-        ``features``  – ``np.ndarray`` shape ``(12,)``:
+        ``features``  – ``np.ndarray`` shape ``(18,)``:
                         6 Keplerian elements + 2 sinusoidal time encodings
                         + altitude (km) + orbital speed (km/s)
                         + BSTAR drag term + argument of latitude (deg)
+                        + x, y, z (km, ECI) + sin/cos(arg_lat) + sin(incl)
+                        (3 finite-difference velocity components are appended
+                        by :func:`build_dataset` to give the final 21-D vector)
         ``x``, ``y``, ``z``  – float (km, ECI frame)
 
     The 12-dimensional feature vector is::

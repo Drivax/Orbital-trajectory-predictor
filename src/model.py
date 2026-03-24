@@ -1,38 +1,38 @@
 """model.py
-OrbitalLSTM – stacked 2-layer LSTM with 256 hidden units per layer.
+OrbitalLSTM – stacked 2-layer LSTM with 128 hidden units per layer.
 OrbitalLSTMAttention – LSTM with temporal self-attention for improved accuracy.
 RandomForestPredictor – scikit-learn ensemble baseline.
 Training, inference, and evaluation utilities.
 
 Architecture (OrbitalLSTM)
 ---------------------------
-Input  → [Batch, 12, 18]   (12 timesteps × 18 features)
+Input  → [Batch, 12, 21]   (12 timesteps × 21 features)
    ↓
-LSTM Layer 1  (256 hidden units, returns all timesteps)
+LSTM Layer 1  (128 hidden units, returns all timesteps)
    ↓
-LSTM Layer 2  (256 hidden units, returns last timestep)
-   ↓
-Linear(256 → 3)
-   ↓
-Output → [Batch, 3]   # (x̂, ŷ, ẑ) in normalised km
-
-Architecture (OrbitalLSTMAttention) – enhanced model
-------------------------------------------------------
-Input  → [Batch, 12, 18]
-   ↓
-LSTM Layer 1  (256 hidden units, return_sequences=True)
-   ↓
-LSTM Layer 2  (256 hidden units, return_sequences=True)
-   ↓
-Temporal Attention  → weighted context vector  [Batch, 256]
-   ↓
-Dropout(0.3)
-   ↓
-Linear(256 → 128) + ReLU
+LSTM Layer 2  (128 hidden units, returns last timestep)
    ↓
 Linear(128 → 3)
    ↓
-Output → [Batch, 3]   # (x̂, ŷ, ẑ) in normalised km
+Output → [Batch, 3]   # (Δx̂, Δŷ, Δẑ) predicted displacement in km
+
+Architecture (OrbitalLSTMAttention) – enhanced model
+------------------------------------------------------
+Input  → [Batch, 12, 21]
+   ↓
+LSTM Layer 1  (128 hidden units, return_sequences=True)
+   ↓
+LSTM Layer 2  (128 hidden units, return_sequences=True)
+   ↓
+Temporal Attention  → weighted context vector  [Batch, 128]
+   ↓
+Dropout(0.3)
+   ↓
+Linear(128 → 64) + ReLU  (LSTM path)
+   ↓
+Linear(64 → 3)            + Skip(21 → 3)  (residual from last input step)
+   ↓
+Output → [Batch, 3]   # (Δx̂, Δŷ, Δẑ) predicted displacement in km
 
 Temporal Attention
 ------------------
@@ -52,6 +52,9 @@ c̃_t = tanh(W_c [h_{t-1}; x_t] + b_c)       candidate cell
 c_t = f_t ⊙ c_{t-1} + i_t ⊙ c̃_t           cell state
 o_t = σ(W_o [h_{t-1}; x_t] + b_o)          output gate
 h_t = o_t ⊙ tanh(c_t)                       hidden state
+
+All models predict the 5-minute position *displacement* (Δx, Δy, Δz in km).
+Inputs are Min-Max scaled; targets are StandardScaler-normalised.
 """
 
 from __future__ import annotations
@@ -74,10 +77,10 @@ class OrbitalLSTM(nn.Module):
 
     Parameters
     ----------
-    input_dim  : number of input features per timestep (default: N_FEATURES=18)
+    input_dim  : number of input features per timestep (default: N_FEATURES=21)
     hidden_dim : LSTM hidden units per layer (default: 128)
     num_layers : number of stacked LSTM layers (default: 2)
-    output_dim : number of output coordinates (default: 3 → x, y, z)
+    output_dim : number of output coordinates (default: 3 → Δx, Δy, Δz displacement)
     dropout    : dropout probability between LSTM layers (default: 0.3)
     """
 
@@ -108,7 +111,7 @@ class OrbitalLSTM(nn.Module):
 
         Returns
         -------
-        Tensor, shape (batch, output_dim)
+        Tensor, shape (batch, output_dim)  -- predicted (Δx, Δy, Δz) displacement (km)
         """
         out, _ = self.lstm(x)           # (batch, seq_len, hidden_dim)
         return self.fc(out[:, -1, :])   # last timestep → (batch, output_dim)
@@ -164,10 +167,10 @@ class OrbitalLSTMAttention(nn.Module):
 
     Parameters
     ----------
-    input_dim  : input feature dimension (default: N_FEATURES=18)
+    input_dim  : input feature dimension (default: N_FEATURES=21)
     hidden_dim : LSTM hidden units per layer (default: 128)
     num_layers : stacked LSTM depth (default: 2)
-    output_dim : output positions (default: 3)
+    output_dim : output displacement components (default: 3 → Δx, Δy, Δz)
     dropout    : dropout on LSTM inter-layer and FC (default: 0.3)
     """
 
