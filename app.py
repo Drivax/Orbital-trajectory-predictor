@@ -4,11 +4,13 @@ Run:
     streamlit run app.py
 """
 
+import io
 import os
 import sys
 import tempfile
 
 import numpy as np
+import pandas as pd
 import streamlit as st
 import torch
 
@@ -43,29 +45,115 @@ st.set_page_config(
     page_title="Orbital Trajectory Predictor",
     page_icon="🛰️",
     layout="wide",
+    initial_sidebar_state="expanded",
 )
 
-st.title("🛰️ Orbital Trajectory Predictor")
+# ── Custom CSS ────────────────────────────────────────────────────────────────
 st.markdown(
-    "Predict satellite positions *(x, y, z in ECI frame, km)* up to **24 hours ahead** "
-    "using Two-Line Element (TLE) data and a stacked **LSTM** model."
+    """
+    <style>
+    /* Hero banner */
+    .hero {
+        background: linear-gradient(135deg, #0d1b2a 0%, #1b2a4a 60%, #0a3d62 100%);
+        border-radius: 12px;
+        padding: 2rem 2.5rem;
+        margin-bottom: 1.5rem;
+        color: white;
+    }
+    .hero h1 { margin: 0 0 0.4rem 0; font-size: 2.2rem; }
+    .hero p  { margin: 0; opacity: 0.8; font-size: 1rem; }
+
+    /* Section cards */
+    .section-card {
+        background: #f8f9fb;
+        border: 1px solid #e2e6ea;
+        border-radius: 10px;
+        padding: 1.2rem 1.5rem;
+        margin: 0.75rem 0 1.25rem 0;
+    }
+
+    /* Metric row spacing */
+    div[data-testid="metric-container"] {
+        background: #f0f4ff;
+        border: 1px solid #d0dcff;
+        border-radius: 8px;
+        padding: 0.6rem 1rem;
+    }
+
+    /* Sidebar section labels */
+    .sidebar-section {
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #888;
+        margin: 1rem 0 0.3rem 0;
+    }
+
+    /* Step badges */
+    .step-badge {
+        display: inline-block;
+        background: #1b4f9c;
+        color: white;
+        border-radius: 50%;
+        width: 1.7rem;
+        height: 1.7rem;
+        text-align: center;
+        line-height: 1.7rem;
+        font-weight: 700;
+        font-size: 0.9rem;
+        margin-right: 0.5rem;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
 )
 
-# ── Sidebar – configuration ──────────────────────────────────────────────────
-st.sidebar.header("⚙️  Configuration")
-hours      = st.sidebar.slider("Prediction horizon (hours)", 1, 24, 24)
-epochs     = st.sidebar.slider("Training epochs", 5, 100, 50, step=5)
-lr         = st.sidebar.select_slider(
-    "Learning rate",
-    options=[1e-4, 5e-4, 1e-3, 5e-3, 1e-2],
-    value=1e-3,
+# ── Hero header ───────────────────────────────────────────────────────────────
+st.markdown(
+    """
+    <div class="hero">
+        <h1>🛰️ Orbital Trajectory Predictor</h1>
+        <p>
+            Predict satellite positions <em>(x, y, z — ECI frame, km)</em> up to <strong>24 h ahead</strong>
+            using Two-Line Element (TLE) data and a stacked <strong>LSTM</strong> neural network.
+        </p>
+    </div>
+    """,
+    unsafe_allow_html=True,
 )
-batch_size    = st.sidebar.selectbox("Batch size", [32, 64, 128], index=1)
-use_attention = st.sidebar.checkbox("Use Attention LSTM (enhanced model)", value=True)
-run_rf        = st.sidebar.checkbox("Compare Random Forest baseline", value=True)
 
-# ── TLE input ────────────────────────────────────────────────────────────────
-st.header("1 · Input TLE Data")
+# ── Sidebar ───────────────────────────────────────────────────────────────────
+with st.sidebar:
+    st.image(
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/200px-NASA_logo.svg.png",
+        width=60,
+    )
+    st.markdown("## ⚙️ Configuration")
+
+    st.markdown('<p class="sidebar-section">Prediction</p>', unsafe_allow_html=True)
+    hours = st.slider("Horizon (hours)", 1, 24, 24, help="How far ahead to predict.")
+
+    st.markdown('<p class="sidebar-section">Training</p>', unsafe_allow_html=True)
+    epochs = st.slider("Epochs", 5, 100, 50, step=5)
+    lr = st.select_slider(
+        "Learning rate",
+        options=[1e-4, 5e-4, 1e-3, 5e-3, 1e-2],
+        value=1e-3,
+        format_func=lambda v: f"{v:.0e}",
+    )
+    batch_size = st.selectbox("Batch size", [32, 64, 128], index=1)
+
+    st.markdown('<p class="sidebar-section">Model</p>', unsafe_allow_html=True)
+    use_attention = st.toggle("Attention LSTM", value=True, help="Use the enhanced model with self-attention.")
+    run_rf        = st.toggle("Random Forest baseline", value=True, help="Train a RF model for comparison.")
+
+    st.divider()
+    device_label = "🖥️ GPU (CUDA)" if torch.cuda.is_available() else "💻 CPU"
+    st.caption(f"Compute: **{device_label}**")
+
+# ── TLE input ─────────────────────────────────────────────────────────────────
+st.markdown('<span class="step-badge">1</span> **Input TLE Data**', unsafe_allow_html=True)
 
 DEFAULT_TLE = """\
 STARLINK-1007
@@ -79,20 +167,42 @@ STARLINK-1009
 2 44715  53.0498  10.1234 0001310  88.7654 274.5432 15.05100000 98732
 """
 
-input_method = st.radio("Input method", ["Paste TLE text", "Upload TLE file"], horizontal=True)
+tab_paste, tab_upload = st.tabs(["✏️  Paste TLE", "📂  Upload file"])
 
-if input_method == "Paste TLE text":
-    tle_text = st.text_area("Paste TLE data (3-line format):", value=DEFAULT_TLE, height=200)
+with tab_paste:
+    tle_text  = st.text_area(
+        "TLE data (3-line format — name + line 1 + line 2):",
+        value=DEFAULT_TLE,
+        height=180,
+        label_visibility="collapsed",
+    )
     tle_bytes = tle_text.encode()
-else:
-    uploaded = st.file_uploader("Upload TLE file (.txt)", type=["txt"])
-    tle_bytes = uploaded.read() if uploaded else DEFAULT_TLE.encode()
 
-# ── Run prediction ───────────────────────────────────────────────────────────
-if st.button("🚀  Run Prediction", type="primary"):
+with tab_upload:
+    uploaded = st.file_uploader(
+        "Upload a .txt TLE file",
+        type=["txt"],
+        help="Plain-text file with one or more 3-line TLE blocks.",
+    )
+    if uploaded:
+        tle_bytes = uploaded.read()
+        st.success(f"File **{uploaded.name}** loaded ({len(tle_bytes):,} bytes).")
+    else:
+        tle_bytes = DEFAULT_TLE.encode()
+        st.caption("No file uploaded — using built-in Starlink sample data.")
 
-    # 1. Parse TLEs
-    with st.spinner("Parsing TLEs …"):
+st.divider()
+
+# ── Run prediction ─────────────────────────────────────────────────────────────
+col_btn, col_hint = st.columns([1, 4])
+with col_btn:
+    run = st.button("🚀 Run Prediction", type="primary", use_container_width=True)
+with col_hint:
+    st.caption("Adjust the sidebar options, then click **Run Prediction** to start.")
+
+if run:
+    # ── Step 1 – Parse ────────────────────────────────────────────────────────
+    with st.status("Parsing TLEs…", expanded=True) as status:
         with tempfile.NamedTemporaryFile(mode="wb", suffix=".txt", delete=False) as tf:
             tf.write(tle_bytes)
             tmp_path = tf.name
@@ -102,142 +212,163 @@ if st.button("🚀  Run Prediction", type="primary"):
             os.unlink(tmp_path)
 
         if not tle_list:
-            st.error("❌  No valid TLE entries found. Please check the input.")
+            status.update(label="❌ No valid TLE entries found.", state="error")
             st.stop()
-        st.success(f"Loaded **{len(tle_list)}** satellite(s).")
 
-    # 2. Propagate
-    with st.spinner("Propagating orbits with SGP4 …"):
-        prop_hours  = max(48.0, hours + WINDOW_SIZE * STEP_MIN / 60.0)
+        st.write(f"Loaded **{len(tle_list)}** satellite(s).")
+
+        # ── Step 2 – Propagate ────────────────────────────────────────────────
+        status.update(label="Propagating orbits with SGP4…")
+        prop_hours = max(48.0, hours + WINDOW_SIZE * STEP_MIN / 60.0)
         all_satellite_records = build_dataset(tle_list, hours=prop_hours, step_min=STEP_MIN)
         if not all_satellite_records:
-            st.error("❌  Propagation produced no records.")
+            status.update(label="❌ Propagation produced no records.", state="error")
             st.stop()
+        st.write(f"Propagated {len(all_satellite_records)} satellite(s) for {prop_hours:.0f} h.")
 
-    # 3. Windows & normalisation
-    with st.spinner("Building sequences and normalising …"):
+        # ── Step 3 – Windows & normalisation ──────────────────────────────────
+        status.update(label="Building sequences and normalising…")
         sat_lengths = compute_satellite_window_lengths(all_satellite_records, WINDOW_SIZE)
         X, y = create_windows(all_satellite_records, window_size=WINDOW_SIZE)
         X_train, y_train, X_test, y_test, x_sc, y_sc = split_and_normalize(
             X, y, satellite_lengths=sat_lengths
         )
-        st.info(
-            f"Training windows: **{len(X_train)}** &nbsp;·&nbsp; "
-            f"Test windows: **{len(X_test)}**"
+        st.write(f"Train windows: **{len(X_train)}** · Test windows: **{len(X_test)}**")
+
+        # ── Step 4 – Train LSTM ───────────────────────────────────────────────
+        status.update(label="Training LSTM…")
+        device  = "cuda" if torch.cuda.is_available() else "cpu"
+        model   = OrbitalLSTMAttention() if use_attention else OrbitalLSTM()
+        history = train_lstm(
+            model, X_train, y_train,
+            epochs=epochs, lr=lr, batch_size=batch_size,
+            device=device,
         )
+        st.write(f"Training complete — final loss: **{history['train_loss'][-1]:.6f}**")
 
-    # 4. Train LSTM
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    progress_bar = st.progress(0, text="Training LSTM …")
-
-    model   = OrbitalLSTMAttention() if use_attention else OrbitalLSTM()
-    history = train_lstm(
-        model, X_train, y_train,
-        epochs=epochs, lr=lr, batch_size=batch_size,
-        device=device,
-    )
-    progress_bar.progress(100, text="Training complete ✅")
-
-    # 5. Inference
-    with st.spinner("Running inference …"):
+        # ── Step 5 – Inference ────────────────────────────────────────────────
+        status.update(label="Running inference…")
         y_pred_n  = predict_lstm(model, X_test, device=device)
         y_pred_km = y_sc.inverse_transform(y_pred_n)
         y_true_km = y_sc.inverse_transform(y_test)
         lstm_m    = compute_extended_metrics(y_true_km, y_pred_km)
 
-    # ── Metrics ──────────────────────────────────────────────────────────────
-    st.header("2 · Performance Metrics")
-    col_r, col_m, col_p = st.columns(3)
-    col_r.metric("RMSE (km)", f"{lstm_m['RMSE_km']:.3f}")
-    col_m.metric("MAE  (km)", f"{lstm_m['MAE_km']:.3f}")
-    col_p.metric("P95  (km)", f"{lstm_m['P95_km']:.3f}")
+        status.update(label="✅ All steps complete!", state="complete", expanded=False)
 
-    # Per-axis errors
-    with st.expander("📐  Per-axis RMSE"):
-        import pandas as pd
-        axis_df = pd.DataFrame([{
-            "Axis": "X", "RMSE (km)": lstm_m["RMSE_x_km"], "MAE (km)": lstm_m["MAE_x_km"],
-        }, {
-            "Axis": "Y", "RMSE (km)": lstm_m["RMSE_y_km"], "MAE (km)": lstm_m["MAE_y_km"],
-        }, {
-            "Axis": "Z", "RMSE (km)": lstm_m["RMSE_z_km"], "MAE (km)": lstm_m["MAE_z_km"],
-        }])
-        st.dataframe(axis_df, use_container_width=True)
+    # ── Metrics ───────────────────────────────────────────────────────────────
+    st.markdown('<span class="step-badge">2</span> **Performance Metrics**', unsafe_allow_html=True)
 
-    # Target thresholds
-    if lstm_m["RMSE_km"] < 5.0:
-        st.success("✅  RMSE < 5 km target achieved.")
+    rmse_ok = lstm_m["RMSE_km"] < 5.0
+    if rmse_ok:
+        st.success(f"✅  RMSE = **{lstm_m['RMSE_km']:.3f} km** — below the 5 km target.")
     else:
-        st.warning(f"⚠️  RMSE = {lstm_m['RMSE_km']:.2f} km exceeds the 5 km target.")
+        st.warning(f"⚠️  RMSE = **{lstm_m['RMSE_km']:.3f} km** exceeds the 5 km target.")
 
-    # Training loss curve
-    with st.expander("📉  Training loss curve"):
-        import pandas as pd
-        st.line_chart(
-            pd.DataFrame(
-                {"train_loss": history["train_loss"], "val_loss": history["val_loss"]}
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("RMSE", f"{lstm_m['RMSE_km']:.3f} km")
+    c2.metric("MAE",  f"{lstm_m['MAE_km']:.3f} km")
+    c3.metric("P95",  f"{lstm_m['P95_km']:.3f} km")
+    c4.metric("Model", "Attention LSTM" if use_attention else "LSTM")
+
+    col_ax, col_loss = st.columns(2)
+
+    with col_ax:
+        with st.expander("📐 Per-axis errors", expanded=True):
+            axis_df = pd.DataFrame([
+                {"Axis": "X", "RMSE (km)": lstm_m["RMSE_x_km"], "MAE (km)": lstm_m["MAE_x_km"]},
+                {"Axis": "Y", "RMSE (km)": lstm_m["RMSE_y_km"], "MAE (km)": lstm_m["MAE_y_km"]},
+                {"Axis": "Z", "RMSE (km)": lstm_m["RMSE_z_km"], "MAE (km)": lstm_m["MAE_z_km"]},
+            ])
+            st.dataframe(
+                axis_df.style.format({"RMSE (km)": "{:.4f}", "MAE (km)": "{:.4f}"}),
+                use_container_width=True,
+                hide_index=True,
             )
-        )
 
-    # ── Optional Random Forest comparison ────────────────────────────────────
+    with col_loss:
+        with st.expander("📉 Training loss", expanded=True):
+            st.line_chart(
+                pd.DataFrame({"Train loss": history["train_loss"], "Val loss": history["val_loss"]}),
+                color=["#1b4f9c", "#e05c2a"],
+            )
+
+    # ── Random Forest comparison ───────────────────────────────────────────────
     if run_rf:
-        with st.spinner("Training Random Forest baseline …"):
-            rf = RandomForestPredictor()
+        with st.spinner("Training Random Forest baseline…"):
+            rf      = RandomForestPredictor()
             rf.fit(X_train, y_train)
             y_rf_km = y_sc.inverse_transform(rf.predict(X_test))
             rf_m    = compute_extended_metrics(y_true_km, y_rf_km)
 
-        st.subheader("Model Comparison")
-        cmp = st.columns(2)
-        cmp[0].metric("RF RMSE (km)", f"{rf_m['RMSE_km']:.3f}",
-                       delta=f"{lstm_m['RMSE_km'] - rf_m['RMSE_km']:.3f}",
-                       delta_color="inverse")
-        cmp[1].metric("RF MAE (km)",  f"{rf_m['MAE_km']:.3f}",
-                       delta=f"{lstm_m['MAE_km'] - rf_m['MAE_km']:.3f}",
-                       delta_color="inverse")
+        with st.expander("🌲 Random Forest vs LSTM", expanded=True):
+            cmp_df = pd.DataFrame([
+                {"Model": "LSTM" + (" + Attention" if use_attention else ""),
+                 "RMSE (km)": lstm_m["RMSE_km"], "MAE (km)": lstm_m["MAE_km"], "P95 (km)": lstm_m["P95_km"]},
+                {"Model": "Random Forest",
+                 "RMSE (km)": rf_m["RMSE_km"],   "MAE (km)": rf_m["MAE_km"],   "P95 (km)": rf_m["P95_km"]},
+            ])
+            st.dataframe(
+                cmp_df.style.format({"RMSE (km)": "{:.4f}", "MAE (km)": "{:.4f}", "P95 (km)": "{:.4f}"}),
+                use_container_width=True,
+                hide_index=True,
+            )
 
-    # ── 3-D trajectory ────────────────────────────────────────────────────────
-    st.header("3 · 3-D Trajectory (Real vs Predicted)")
     n_disp = min(int(hours * 60.0 / STEP_MIN), len(y_true_km))
-    fig    = plot_trajectory_3d(y_true_km[:n_disp], y_pred_km[:n_disp])
+
+    # ── 3-D Trajectory ────────────────────────────────────────────────────────
+    st.divider()
+    st.markdown('<span class="step-badge">3</span> **3-D Trajectory — Real vs Predicted**', unsafe_allow_html=True)
+    fig = plot_trajectory_3d(y_true_km[:n_disp], y_pred_km[:n_disp])
     st.plotly_chart(fig, use_container_width=True)
 
-    # ── Ground track ──────────────────────────────────────────────────────────
-    st.header("4 · Ground Track")
-    import tempfile as _tf, os as _os
-    gt_tmp = _os.path.join(_tf.gettempdir(), "ground_track.png")
-    plot_ground_track(y_true_km[:n_disp], y_pred_km[:n_disp],
-                      step_min=STEP_MIN, output_path=gt_tmp)
-    st.image(gt_tmp, use_container_width=True)
+    # ── Ground track & Altitude side-by-side ─────────────────────────────────
+    st.divider()
+    col_gt, col_alt = st.columns(2)
 
-    # ── Altitude profile ──────────────────────────────────────────────────────
-    st.header("5 · Altitude Profile")
-    alt_tmp = _os.path.join(_tf.gettempdir(), "altitude_profile.png")
-    plot_altitude_profile(y_true_km[:n_disp], y_pred_km[:n_disp],
-                          step_min=STEP_MIN, output_path=alt_tmp)
-    st.image(alt_tmp, use_container_width=True)
+    with col_gt:
+        st.markdown('<span class="step-badge">4</span> **Ground Track**', unsafe_allow_html=True)
+        gt_tmp = os.path.join(tempfile.gettempdir(), "ground_track.png")
+        plot_ground_track(
+            y_true_km[:n_disp], y_pred_km[:n_disp],
+            step_min=STEP_MIN, output_path=gt_tmp,
+        )
+        st.image(gt_tmp, use_container_width=True)
+        with open(gt_tmp, "rb") as fh:
+            st.download_button("⬇️ Download ground track", fh, "ground_track.png", "image/png")
+
+    with col_alt:
+        st.markdown('<span class="step-badge">5</span> **Altitude Profile**', unsafe_allow_html=True)
+        alt_tmp = os.path.join(tempfile.gettempdir(), "altitude_profile.png")
+        plot_altitude_profile(
+            y_true_km[:n_disp], y_pred_km[:n_disp],
+            step_min=STEP_MIN, output_path=alt_tmp,
+        )
+        st.image(alt_tmp, use_container_width=True)
+        with open(alt_tmp, "rb") as fh:
+            st.download_button("⬇️ Download altitude profile", fh, "altitude_profile.png", "image/png")
 
     # ── Conjunction analysis ──────────────────────────────────────────────────
     if len(all_satellite_records) >= 2:
-        st.header("6 · Conjunction Analysis")
-        sats_pos  = []
-        sat_names = []
-        for sat_recs, (sat_name, _, _) in zip(
-            all_satellite_records[:3], tle_list[:3]
-        ):
+        st.divider()
+        st.markdown('<span class="step-badge">6</span> **Conjunction Analysis**', unsafe_allow_html=True)
+        sats_pos, sat_names = [], []
+        for sat_recs, (sat_name, _, _) in zip(all_satellite_records[:3], tle_list[:3]):
             pos_arr = np.array(
                 [[r["x"], r["y"], r["z"]] for r in sat_recs], dtype=np.float32
             )
             sats_pos.append(pos_arr[:n_disp])
             sat_names.append(sat_name)
-        conj_tmp  = _os.path.join(_tf.gettempdir(), "conjunction.png")
-        plot_conjunction_analysis(sats_pos, labels=sat_names,
-                                  step_min=STEP_MIN, output_path=conj_tmp)
+        conj_tmp = os.path.join(tempfile.gettempdir(), "conjunction.png")
+        plot_conjunction_analysis(
+            sats_pos, labels=sat_names,
+            step_min=STEP_MIN, output_path=conj_tmp,
+        )
         st.image(conj_tmp, use_container_width=True)
 
     # ── Predicted positions table ─────────────────────────────────────────────
-    st.header("7 · Predicted Positions")
-    import pandas as pd
+    st.divider()
+    st.markdown('<span class="step-badge">7</span> **Predicted Positions**', unsafe_allow_html=True)
+
     rows = [
         {
             "Step": i + 1,
@@ -245,7 +376,27 @@ if st.button("🚀  Run Prediction", type="primary"):
             "x (km)": round(float(y_pred_km[i, 0]), 3),
             "y (km)": round(float(y_pred_km[i, 1]), 3),
             "z (km)": round(float(y_pred_km[i, 2]), 3),
+            "Error (km)": round(
+                float(np.linalg.norm(y_pred_km[i] - y_true_km[i])), 3
+            ),
         }
         for i in range(n_disp)
     ]
-    st.dataframe(pd.DataFrame(rows), use_container_width=True)
+    pos_df = pd.DataFrame(rows)
+
+    st.dataframe(
+        pos_df.style.format(
+            {"x (km)": "{:.3f}", "y (km)": "{:.3f}", "z (km)": "{:.3f}", "Error (km)": "{:.3f}"}
+        ).background_gradient(subset=["Error (km)"], cmap="YlOrRd"),
+        use_container_width=True,
+        hide_index=True,
+    )
+
+    csv_buf = io.StringIO()
+    pos_df.to_csv(csv_buf, index=False)
+    st.download_button(
+        "⬇️ Download predictions (CSV)",
+        csv_buf.getvalue().encode(),
+        "predicted_positions.csv",
+        "text/csv",
+    )
