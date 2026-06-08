@@ -181,6 +181,12 @@ pip install -r requirements.txt
 python predict.py --tle data/starlink_tle.txt --hours 24
 ```
 
+**CLI — batch mode from a folder of TLE files:**
+
+```bash
+python predict.py --tle data/
+```
+
 **CLI — LSTM with temporal attention:**
 
 ```bash
