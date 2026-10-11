@@ -1,214 +1,136 @@
-﻿# Orbital Trajectory Predictor
+# Physics vs ML vs Hybrid orbital prediction
 
-<p align="center">
-  <img src="results/trajectory_3d_snapshot.png" alt="3D Trajectory Comparison" width="700"/>
-</p>
+## Objective
+Can machine learning improve a physics-based orbital predictor under model mismatch,
+longer prediction horizons and distribution shift? This is a **controlled synthetic
+benchmark**, not a flight-ready orbit determination system.
 
----
+## Problem formulation
+Given an exact inertial state $(r_t,v_t)$, predict positions at 5, 30, 60, 180 and
+360 minutes. Targets come from numerical integration with central gravity, J2
+and a fixed exponential atmosphere. No SGP4-generated labels are used.
 
-## Project Objective
+## Physics models
+Constant velocity uses $r_t+v_t h$. Two Body integrates
+$\ddot r=-\mu r/\|r\|^3$. Two Body + J2 adds
 
-This project predicts the short-term positional displacement of low-Earth orbit satellites from Two-Line Element (TLE) data. Given one hour of recent orbital history, the model estimates where a satellite will be five minutes later — expressed as a 3D displacement vector $(\Delta x,\, \Delta y,\, \Delta z)$ in the Earth-Centered Inertial (ECI) frame.
+$$a_{J2}=\frac{3J_2\mu R_E^2}{2\|r\|^5}
+[x(5z^2/\|r\|^2-1),y(5z^2/\|r\|^2-1),z(5z^2/\|r\|^2-3)]^T.$$
 
-The motivation is practical. Standard orbit propagators like SGP4 accumulate errors over time because they rely on simplified analytical equations. A learned model trained on real orbital data can capture perturbation patterns — atmospheric drag, geopotential harmonics, solar pressure — that the analytical model approximates but does not fully resolve. This project explores how far a sequence model can go using only TLE-derived features and no additional sensor data.
+The reference additionally uses $a_D=-\frac12(C_D A/m)\rho\|v_{rel}\|v_{rel}$,
+with a co-rotating atmosphere, $C_D A/m=0.015$ m²/kg and
+$\rho(h)=4\times10^{-12}\exp[-(h-400)/60]$ kg/m³ (altitude in km).
+This atmosphere is a toy LEO model. Integration uses DOP853, km and seconds;
+solver tolerances and a tighter-tolerance comparison are saved with every run.
 
----
+## ML and hybrid residual model
+Two independent MLPs (96–96 tanh units) predict all five horizons directly.
+Pure ML predicts position; the hybrid learns
+$r^{hybrid}=r^{two-body}+f_\theta(X)$ with target $r^{reference}-r^{two-body}$.
+Both minimize MSE of train-standardized output coordinates, with equal coordinate
+and horizon weighting, Adam and validation-selected checkpoints.
 
-## Dataset
+Inputs are current radius, radial/transverse velocity, and the three RTN basis
+projections onto Earth's spin axis. Outputs use the initial RTN frame and rotate
+back to inertial coordinates. These shared geometric features use no future states
+or propagated positions. A recurrent model is unnecessary for this exact-state
+Markov experiment. Hybrid inference additionally requires two-body propagation.
 
-The dataset consists of **31 Starlink satellites** from the public TLE catalog maintained by [Celestrak](https://celestrak.org/). The satellites span three inclination shells (nominally 53°, 70°, and 51.6°), which provides some orbital diversity while keeping the dataset homogeneous in terms of satellite type and altitude regime.
+## Experimental protocol
+Data seed: 2026. Whole synthetic satellites are assigned to train/validation/ID test/OOD
+(96/24/24/24); each has 12 origins separated by 7 h, longer than any forecast.
+The ID test is a leave-satellites-out holdout, not leave-one-out cross-validation.
+No satellite or forecast window crosses a split; all scalers fit train only.
+Validation controls checkpoint selection, never ID test or OOD.
 
-Each TLE is propagated using the SGP4 standard propagator (via the `skyfield` library) at a **5-minute cadence** over a **48-hour window**. This produces 576 steps per satellite and **17,856 records** in total.
+ID initial semimajor-axis altitudes are 450–650 km, inclinations 35–65°,
+eccentricities 0–0.008. OOD uses 800–1100 km, 90–105°, 0–0.015.
+RAAN, argument of perigee and true anomaly are uniform over a full turn.
+The same dataset is used for ML seeds 11, 22, 33. Reported spread reflects
+training randomness, not population uncertainty; samples within a satellite are correlated.
 
-Each timestep is described by a **21-dimensional feature vector** built from:
+## Results
+<!-- RESULTS:START -->
+Mean 3D error in **km** on held-out ID satellites; OOD column is at the longest horizon.
+ML entries are mean ± sample std across training seeds, not confidence intervals.
 
-| Group | Features |
-|---|---|
-| Keplerian elements | inclination, RAAN, eccentricity, argument of perigee, mean anomaly, mean motion |
-| Diurnal time encoding | sin and cos of elapsed time over one sidereal day |
-| Physics-derived | altitude (km), vis-viva orbital speed (km/s), BSTAR drag coefficient, argument of latitude |
-| ECI position context | x, y, z in km |
-| Smooth angular encodings | sin and cos of argument of latitude, sin of inclination |
-| Finite-difference velocity | vx, vy, vz in km/s |
+| Model | 5 min | 30 min | 60 min | 180 min | 360 min | OOD |
+|---|---:|---:|---:|---:|---:|---:|
+| Constant Velocity | 372 | 1.21e+04 | 3.43e+04 | 8.66e+04 | 1.71e+05 | 1.57e+05 |
+| Two Body | 0.517 | 12.8 | 34.1 | 92.3 | 185 | 202 |
+| Two Body + J2 | 9.28e-06 | 0.000378 | 0.00335 | 0.0362 | 0.144 | 0.000224 |
+| Pure ML | 0.487 ± 0.016 | 1.51 ± 0.24 | 2.71 ± 0.24 | 7.39 ± 0.79 | 14.8 ± 1.4 | 9e+03 ± 1.1e+02 |
+| Physics + ML residual | 0.00607 ± 0.00029 | 0.146 ± 0.0045 | 0.444 ± 0.025 | 1.33 ± 0.11 | 3.73 ± 0.42 | 360 ± 21 |
 
-The regression target is the **position displacement** at the next step: $\Delta\mathbf{r}_{k+1} = \mathbf{r}_{k+1} - \mathbf{r}_k \in \mathbb{R}^3$.
+### Key findings
 
----
+- At 360 min on ID, the hybrid changes two-body error by -98.0% (185 → 3.73 km).
+- At 360 min on OOD, the hybrid changes two-body error by +78.3% (202 → 360 km).
+- The lowest ID mean error at 360 min is obtained by **Two Body + J2**.
+- Pure ML has 14.8 km ID mean error at 360 min; no superiority over physics is assumed.
+<!-- RESULTS:END -->
 
-## Methodology
+MAE 3D means mean Euclidean position error; RMSE 3D is the square root of
+mean squared Euclidean error. CSV/JSON also contain P95 and absolute radial,
+along-track and cross-track errors in the **target** RTN frame, plus error divided
+by target geocentric radius. Physics is evaluated once, not replicated as independent seeds.
 
-### 1. SGP4 Propagation and Feature Engineering
+![Error vs horizon](results/figures/01_error_vs_horizon.png)
+![Example trajectory](results/figures/02_example_trajectory.png)
+![Error distribution and P95](results/figures/03_error_distribution.png)
 
-Each TLE is parsed and fed to SGP4, which returns the satellite's ECI position at every 5-minute mark. Several derived quantities are then computed: altitude above the WGS84 reference sphere, orbital speed from the vis-viva equation, and the argument of latitude (argument of perigee plus mean anomaly, mod 360 degrees).
+## Robustness / OOD evaluation
+OOD changes altitude, inclination and eccentricity jointly, so their effects cannot
+be separated here. The plots use the same held-out satellites for every model.
+Shaded bands/error bars show ML seed standard deviation; the trajectory and boxplot
+use the first fixed seed, not a selected best seed. ML trajectory markers are only
+the five evaluated horizons, not a continuous learned trajectory.
 
-Angular features like inclination and argument of latitude are encoded as sine and cosine pairs. This matters because a raw angle of 359 degrees and 1 degree are numerically close but appear far apart to a network. The sinusoidal representation removes that discontinuity cleanly.
+![ID vs OOD](results/figures/04_id_vs_ood.png)
+![Residual learning](results/figures/05_residual_learning.png)
 
-Finite-difference velocity is appended in a second pass over the propagated positions. Since the displacement $\Delta\mathbf{r} \approx \mathbf{v} \cdot \Delta t$, velocity is essentially a linearised prediction of the target. Including it directly in the input gives the model a strong physical prior from the beginning.
+## Limitations
+- The higher-fidelity reference is still a simplified simulator: no SRP, third bodies,
+  realistic time-varying atmosphere, maneuvers, measurement noise or state-estimation errors.
+- TLEs are not precision telemetry; the archived TLE/SGP4 experiment demonstrates imitation,
+  not correction of SGP4 against real orbits.
+- The J2 baseline shares reference forces and leaves only toy drag unmodeled.
+  The hybrid's comparison is primarily against Two Body, not an operational propagator.
+- Fixed drag coefficient, limited orbit families and three training seeds do not establish
+  generalization to real satellites. Horizons are trained jointly; 6 h is not unseen-horizon extrapolation.
+- No hyperparameter search or independent external dataset; results are experimental, not flight-ready.
 
-### 2. Sequence Construction and Normalization
-
-Input windows of length $L = 12$ steps (one hour of history) are created as sliding windows across each satellite's time series independently. Windows are never created across satellite boundaries, as mixing two unrelated orbit states would produce physically meaningless sequences.
-
-Input features are scaled to $[0, 1]$ with Min-Max normalization. Displacement targets are standardized to zero mean and unit variance, which suits the roughly zero-centered displacement distribution better than min-max scaling.
-
-The train/test split is **80% / 20% per satellite**, applied in strict chronological order. This prevents future data from leaking into training and ensures every orbit family is represented in both sets.
-
-### 3. LSTM with Temporal Attention
-
-The main model (`OrbitalLSTMAttention`) is a two-layer stacked LSTM with 128 hidden units per layer, followed by a temporal self-attention mechanism, a dropout layer (0.3), and two fully-connected layers.
-
-The attention layer computes a weighted context vector from all 12 LSTM hidden states. It learns to focus on the most informative timesteps in the window — for instance, the periapsis where drag is strongest, or a sharp velocity change. This is more expressive than reading off only the last hidden state.
-
-A **residual skip connection** maps the last input timestep's feature vector directly to the output through a zero-initialized linear layer. It contributes nothing at the start of training and gradually activates as the model converges, acting as a physics-informed shortcut. The LSTM then only needs to learn the perturbation correction on top of this linear baseline.
-
-Training uses the Adam optimizer with learning rate $5 \times 10^{-4}$, L2 weight decay ($10^{-4}$), gradient clipping (norm bound 1.0), and a ReduceLROnPlateau scheduler that halves the rate after 12 stagnant epochs. Maximum training is 200 epochs with early stopping at patience 25 and batch size 64.
-
-A **Random Forest** (100 trees) is trained on the flattened input windows as a non-recurrent baseline.
-
----
-
-## Key Equations
-
-**Vis-viva equation** — gives orbital speed at any point along the trajectory:
-
-$$v = \sqrt{\mu\left(\frac{2}{r} - \frac{1}{a}\right)}$$
-
-$\mu = 3.986 \times 10^5\ \mathrm{km^3/s^2}$ is Earth's gravitational parameter, $r$ is the current geocentric distance, and $a$ is the semi-major axis. At 550 km altitude, this gives roughly 7.5 km/s. It is computed at every propagation step and included directly as a feature.
-
----
-
-**LSTM gate equations** — at each timestep $t$ the cell state is updated through learned gates:
-
-$$\mathbf{f}_t = \sigma\!\left(W_f [\mathbf{h}_{t-1};\, \mathbf{x}_t] + \mathbf{b}_f\right), \qquad \mathbf{i}_t = \sigma\!\left(W_i [\mathbf{h}_{t-1};\, \mathbf{x}_t] + \mathbf{b}_i\right)$$
-
-$$\mathbf{c}_t = \mathbf{f}_t \odot \mathbf{c}_{t-1} + \mathbf{i}_t \odot \tanh\!\left(W_c [\mathbf{h}_{t-1};\, \mathbf{x}_t] + \mathbf{b}_c\right)$$
-
-$$\mathbf{h}_t = \sigma\!\left(W_o [\mathbf{h}_{t-1};\, \mathbf{x}_t] + \mathbf{b}_o\right) \odot \tanh(\mathbf{c}_t)$$
-
-The forget gate $\mathbf{f}_t$ controls how much of the previous cell state survives. When it is close to 1, gradients flow back without vanishing — which is what makes LSTMs effective on sequences where relevant context spans many steps. For orbital data, dependencies across several orbital periods matter (e.g., accumulated drag over multiple passes), so this property is directly useful.
-
----
-
-**Temporal attention** — after the second LSTM layer produces the hidden sequence $\mathbf{H} = [\mathbf{h}_1, \dots, \mathbf{h}_L]$, a scalar energy is computed for each step and softmax-normalized:
-
-$$e_t = \mathbf{w}_a^\top \mathbf{h}_t + b_a, \qquad \alpha_t = \frac{\exp(e_t)}{\displaystyle\sum_{j=1}^{L} \exp(e_j)}, \qquad \mathbf{c} = \sum_{t=1}^{L} \alpha_t\, \mathbf{h}_t$$
-
-The weights $\alpha_t$ sum to one across the 12 input steps. The model can assign nearly all weight to a single step (sharp focus) or spread it evenly, whichever is more predictive for the current orbital configuration.
-
----
-
-**J2 perturbing acceleration** — the dominant perturbation in LEO, caused by Earth's equatorial flattening:
-
-$$\mathbf{a}_{J_2} = -\frac{3\mu J_2 R_\oplus^2}{2r^5}
-\begin{pmatrix}
-x\!\left(1 - 5z^2/r^2\right) \\
-y\!\left(1 - 5z^2/r^2\right) \\
-z\!\left(3 - 5z^2/r^2\right)
-\end{pmatrix}$$
-
-$J_2 = 1.08263 \times 10^{-3}$, $R_\oplus = 6378.137\ \mathrm{km}$. This acceleration is not a model input; it shapes the dynamics the LSTM must learn. It causes the orbital plane to precess in RAAN and the argument of perigee to drift, at rates that depend on inclination. SGP4 captures this analytically; the neural model learns the residuals on top of that approximation.
-
----
-
-**Training loss** — mean squared error on normalized position displacement:
-
-$$\mathcal{L} = \frac{1}{N} \sum_{i=1}^{N} \left\| \Delta\mathbf{r}_i - \Delta\hat{\mathbf{r}}_i \right\|_2^2$$
-
-Predicting displacement rather than absolute position removes the baseline orbital radius ($\approx 7000\ \mathrm{km}$) from the regression target, reducing output variance by roughly a factor of nine and accelerating convergence.
-
----
-
-## Evaluation
-
-Metrics are computed on the held-out test set after inverse-transforming predictions back to kilometers. Per-sample error is the 3D Euclidean norm $e_i = \|\Delta\mathbf{r}_i - \Delta\hat{\mathbf{r}}_i\|_2$.
-
-$$\text{RMSE} = \sqrt{\frac{1}{N}\sum e_i^2}, \qquad \text{MAE} = \frac{1}{N}\sum e_i, \qquad P_{95} = \text{percentile}_{95}\!\left(e_1, \dots, e_N\right)$$
-
-The 95th-percentile error $P_{95}$ captures tail behavior — the cases where the model is most wrong — which is the operationally relevant quantity for collision avoidance.
-
-| Model | RMSE (km) | MAE (km) | P95 (km) |
-|---|---|---|---|
-| **LSTM + Attention** (2 layers, 128 units) | **41.9** | **37.7** | **69.7** |
-| Random Forest (100 trees, baseline) | 63.3 | 53.3 | — |
-
-**Per-axis RMSE for LSTM + Attention:** $x = 14.2\ \mathrm{km}$, $y = 17.1\ \mathrm{km}$, $z = 35.5\ \mathrm{km}$.
-
-The z-axis error is the largest. The z-component of displacement is most sensitive to orbital inclination and J2-induced nodal precession, both of which vary across the 31 satellites in ways that are harder to generalize from kinematic features alone.
-
-At LEO orbital speed, a satellite covers roughly 2 250 km in five minutes. A MAE of 37.7 km is a relative displacement error of about **1.7%**. The attention LSTM improves on the Random Forest by 34% in RMSE, which confirms that the sequential structure of the one-hour window has real predictive value beyond what a non-recurrent model can extract from a flattened feature vector.
-
----
-
-## Repository Structure
-
-```
-orbital-trajectory-predictor/
-├── src/
-│   ├── data_loader.py         # TLE parsing, SGP4 propagation, feature engineering (21-D), windowing
-│   ├── model.py               # OrbitalLSTM, OrbitalLSTMAttention, RandomForestPredictor, training
-│   ├── physics.py             # Vis-viva, J2, drag, coordinate transforms, conjunction analysis
-│   └── visualization.py      # 3-D Plotly, ground track, altitude profile, error plots, GIF export
-├── data/
-│   └── starlink_tle.txt       # 31-satellite TLE dataset (3 inclination shells)
-├── notebooks/
-│   ├── 01_data_loading.ipynb  # TLE loading and SGP4 propagation walkthrough
-│   ├── 02_preprocessing.ipynb # Feature engineering, windowing, and normalization
-│   ├── 03_lstm_model.ipynb    # Model definition, training, and evaluation
-│   └── 04_results.ipynb       # Metrics, trajectory plots, and model comparison
-├── results/
-│   ├── trajectory_3d.html          # Interactive 3-D trajectory (Plotly)
-│   └── linkedin/                   # Exported figures
-├── predict.py                 # CLI inference script
-├── app.py                     # Streamlit interactive dashboard
-├── lstm.pt                    # Saved model weights
-├── requirements.txt
-└── README.md
+## Repository structure
+```text
+src/
+  config.py                # fixed experiment settings
+  data/synthetic.py        # populations, disjoint satellite splits, state features
+  dynamics/                # two-body, J2, drag and numerical propagation
+  models/residual_model.py # pure and residual MLP training/inference
+  evaluation/              # metrics and measured Markdown tables
+  visualization/           # five generated scientific figures
+  run_benchmark.py          # end-to-end entry point
+tests/                     # physics, leakage, residual and pipeline checks
+results/                   # metrics, predictions, dataset, provenance and figures
+models/                    # fitted networks and train-only scalers (ignored)
+legacy/                    # archived SGP4 scripts/notebooks/results; not maintained
 ```
 
----
-
-## Installation and Execution
-
-**Install dependencies:**
-
+## Reproduce the experiments
+Python 3.12; CPU only. From the repository root:
 ```bash
-pip install -r requirements.txt
+python -m venv .venv
+# Windows: .venv\Scripts\activate
+# POSIX: source .venv/bin/activate
+python -m pip install -r requirements.txt
+python -m src.run_benchmark
+python -m pytest -q
 ```
-
-**CLI — standard LSTM:**
-
-```bash
-python predict.py --tle data/starlink_tle.txt --hours 24
-```
-
-**CLI — batch mode from a folder of TLE files:**
-
-```bash
-python predict.py --tle data/
-```
-
-**CLI — LSTM with temporal attention:**
-
-```bash
-python predict.py --tle data/starlink_tle.txt --hours 24 --attention
-```
-
-**CLI — with Random Forest comparison:**
-
-```bash
-python predict.py --tle data/starlink_tle.txt --hours 24 --attention --baseline
-```
-
-**Re-use pre-trained weights:**
-
-```bash
-python predict.py --tle data/starlink_tle.txt --hours 24 --attention --model-path lstm.pt
-```
-
-**Interactive dashboard:**
-
-```bash
-streamlit run app.py
-```
-
-The dashboard accepts TLE input by paste or file upload, lets you choose between the two LSTM variants, and renders the 3-D trajectory comparison, ground track, altitude profile, conjunction analysis, and all evaluation metrics in real time.
+The benchmark prepares data, trains six networks, evaluates all baselines, saves
+CSV/JSON and prediction arrays, generates figures and updates this results table.
+It needs no download or external service after dependency installation.
+`python -m src.run_benchmark --quick` writes smoke outputs separately.
+Use `--output PATH --models PATH` for an isolated run without replacing the main
+results. Regenerate figures only with `python -m scripts.refresh_figures`.
+Checkpoints use pickle: load only files you trust.
+See `results/run_metadata.json` for versions, settings, sample counts and solver sensitivity.

@@ -1,0 +1,1682 @@
+[
+  {
+    "satellite": "train-000",
+    "split": "train",
+    "semimajor_altitude_km": 485.78696273508723,
+    "inclination_deg": 54.197394971454635,
+    "eccentricity": 0.003738147209147881,
+    "raan_rad": 2.3279234682275796,
+    "argument_rad": 2.230011380197746,
+    "anomaly_rad": 4.9669726274026145
+  },
+  {
+    "satellite": "train-001",
+    "split": "train",
+    "semimajor_altitude_km": 631.0287673354348,
+    "inclination_deg": 40.32059575469146,
+    "eccentricity": 0.005222278421481056,
+    "raan_rad": 1.874291564939523,
+    "argument_rad": 6.075602688658378,
+    "anomaly_rad": 5.77958901349461
+  },
+  {
+    "satellite": "train-002",
+    "split": "train",
+    "semimajor_altitude_km": 577.1741608289303,
+    "inclination_deg": 57.58196291237261,
+    "eccentricity": 0.004121229570578814,
+    "raan_rad": 5.18925295269467,
+    "argument_rad": 2.817258054883098,
+    "anomaly_rad": 2.128821428550498
+  },
+  {
+    "satellite": "train-003",
+    "split": "train",
+    "semimajor_altitude_km": 505.5798431000318,
+    "inclination_deg": 41.7899917053021,
+    "eccentricity": 0.004206534746761987,
+    "raan_rad": 2.707500328378898,
+    "argument_rad": 4.166886730559653,
+    "anomaly_rad": 0.08067913014421761
+  },
+  {
+    "satellite": "train-004",
+    "split": "train",
+    "semimajor_altitude_km": 539.5403803077442,
+    "inclination_deg": 45.95542403397174,
+    "eccentricity": 0.0015631807989724322,
+    "raan_rad": 3.737652500447818,
+    "argument_rad": 2.7351532254910658,
+    "anomaly_rad": 1.8849022086102352
+  },
+  {
+    "satellite": "train-005",
+    "split": "train",
+    "semimajor_altitude_km": 491.8832242472439,
+    "inclination_deg": 61.23872171576539,
+    "eccentricity": 0.006379698524171461,
+    "raan_rad": 3.8120693262707372,
+    "argument_rad": 2.168330885381503,
+    "anomaly_rad": 5.9490441992301735
+  },
+  {
+    "satellite": "train-006",
+    "split": "train",
+    "semimajor_altitude_km": 562.6754749005091,
+    "inclination_deg": 47.98288218859856,
+    "eccentricity": 0.007203596792033777,
+    "raan_rad": 2.0064837302444065,
+    "argument_rad": 4.373064741896952,
+    "anomaly_rad": 1.971791269349213
+  },
+  {
+    "satellite": "train-007",
+    "split": "train",
+    "semimajor_altitude_km": 502.31060926236,
+    "inclination_deg": 56.025226685025665,
+    "eccentricity": 0.0018231358312588615,
+    "raan_rad": 3.098303536197183,
+    "argument_rad": 3.6444262537648635,
+    "anomaly_rad": 1.1869336954579208
+  },
+  {
+    "satellite": "train-008",
+    "split": "train",
+    "semimajor_altitude_km": 596.248131671689,
+    "inclination_deg": 51.45449193873891,
+    "eccentricity": 0.004972026077007501,
+    "raan_rad": 2.338251703448227,
+    "argument_rad": 2.6401521169092192,
+    "anomaly_rad": 3.109106561844855
+  },
+  {
+    "satellite": "train-009",
+    "split": "train",
+    "semimajor_altitude_km": 543.994182481234,
+    "inclination_deg": 55.26917668548869,
+    "eccentricity": 0.004617420035969593,
+    "raan_rad": 2.615505587860463,
+    "argument_rad": 0.011324521700707389,
+    "anomaly_rad": 4.9890442945088695
+  },
+  {
+    "satellite": "train-010",
+    "split": "train",
+    "semimajor_altitude_km": 553.8768442288671,
+    "inclination_deg": 44.7963399143381,
+    "eccentricity": 0.003999640179289552,
+    "raan_rad": 0.5871381163490649,
+    "argument_rad": 5.6844233360127605,
+    "anomaly_rad": 6.218695746151185
+  },
+  {
+    "satellite": "train-011",
+    "split": "train",
+    "semimajor_altitude_km": 461.7470435031166,
+    "inclination_deg": 45.74693655774145,
+    "eccentricity": 0.005840516622552668,
+    "raan_rad": 1.9744164090237715,
+    "argument_rad": 3.5628787101952404,
+    "anomaly_rad": 2.617392549815457
+  },
+  {
+    "satellite": "train-012",
+    "split": "train",
+    "semimajor_altitude_km": 604.842431526175,
+    "inclination_deg": 63.753932028921014,
+    "eccentricity": 0.007107163410533413,
+    "raan_rad": 3.9014525916516725,
+    "argument_rad": 1.0070332064743233,
+    "anomaly_rad": 5.950566566850728
+  },
+  {
+    "satellite": "train-013",
+    "split": "train",
+    "semimajor_altitude_km": 454.7264857343552,
+    "inclination_deg": 43.93128369262584,
+    "eccentricity": 0.0022529079448047663,
+    "raan_rad": 4.221207137341599,
+    "argument_rad": 3.062192456008798,
+    "anomaly_rad": 0.583635964758027
+  },
+  {
+    "satellite": "train-014",
+    "split": "train",
+    "semimajor_altitude_km": 452.57157754898606,
+    "inclination_deg": 53.129472403209135,
+    "eccentricity": 0.003931866658727409,
+    "raan_rad": 3.7785953088064996,
+    "argument_rad": 3.5438664543385854,
+    "anomaly_rad": 5.594919585912785
+  },
+  {
+    "satellite": "train-015",
+    "split": "train",
+    "semimajor_altitude_km": 633.6793715741194,
+    "inclination_deg": 40.64771483307095,
+    "eccentricity": 0.007536966955764274,
+    "raan_rad": 4.949432364585458,
+    "argument_rad": 4.015120358869379,
+    "anomaly_rad": 4.144434691608008
+  },
+  {
+    "satellite": "train-016",
+    "split": "train",
+    "semimajor_altitude_km": 559.2120459801286,
+    "inclination_deg": 62.51789898928522,
+    "eccentricity": 0.00186610564960111,
+    "raan_rad": 3.765613436985985,
+    "argument_rad": 5.116040042824873,
+    "anomaly_rad": 0.8467311728000764
+  },
+  {
+    "satellite": "train-017",
+    "split": "train",
+    "semimajor_altitude_km": 573.1016548717735,
+    "inclination_deg": 47.08500426588722,
+    "eccentricity": 0.006128290731730263,
+    "raan_rad": 0.4254618757360406,
+    "argument_rad": 3.8127272030993815,
+    "anomaly_rad": 5.385184232020827
+  },
+  {
+    "satellite": "train-018",
+    "split": "train",
+    "semimajor_altitude_km": 575.6695724726181,
+    "inclination_deg": 44.64013086360562,
+    "eccentricity": 0.005246368447375113,
+    "raan_rad": 2.124676973059912,
+    "argument_rad": 4.200892384624508,
+    "anomaly_rad": 0.8064116573994691
+  },
+  {
+    "satellite": "train-019",
+    "split": "train",
+    "semimajor_altitude_km": 505.99834883917856,
+    "inclination_deg": 35.98155134590746,
+    "eccentricity": 0.0006712751117015268,
+    "raan_rad": 3.485720324100679,
+    "argument_rad": 1.4558028603517876,
+    "anomaly_rad": 3.242642531936618
+  },
+  {
+    "satellite": "train-020",
+    "split": "train",
+    "semimajor_altitude_km": 581.9139066145682,
+    "inclination_deg": 61.435585380485705,
+    "eccentricity": 0.0028404881167083096,
+    "raan_rad": 2.0023189996351,
+    "argument_rad": 1.970826261944615,
+    "anomaly_rad": 0.7404711549320177
+  },
+  {
+    "satellite": "train-021",
+    "split": "train",
+    "semimajor_altitude_km": 582.636672931453,
+    "inclination_deg": 59.58963744311632,
+    "eccentricity": 0.00378403888690391,
+    "raan_rad": 3.507886001543722,
+    "argument_rad": 6.022308167596129,
+    "anomaly_rad": 4.391413537491815
+  },
+  {
+    "satellite": "train-022",
+    "split": "train",
+    "semimajor_altitude_km": 599.0069773295304,
+    "inclination_deg": 61.684950719135855,
+    "eccentricity": 0.0017263246086729512,
+    "raan_rad": 4.085113824867429,
+    "argument_rad": 4.507522615318163,
+    "anomaly_rad": 5.291874153335138
+  },
+  {
+    "satellite": "train-023",
+    "split": "train",
+    "semimajor_altitude_km": 518.7571092003789,
+    "inclination_deg": 55.66384117139144,
+    "eccentricity": 0.004835204846420847,
+    "raan_rad": 2.5720912330464163,
+    "argument_rad": 0.6389104548480812,
+    "anomaly_rad": 2.218268731868993
+  },
+  {
+    "satellite": "train-024",
+    "split": "train",
+    "semimajor_altitude_km": 642.6969496240957,
+    "inclination_deg": 41.495705048383954,
+    "eccentricity": 0.0009091039487054049,
+    "raan_rad": 2.31019795925981,
+    "argument_rad": 0.634481029267663,
+    "anomaly_rad": 1.6788604026077403
+  },
+  {
+    "satellite": "train-025",
+    "split": "train",
+    "semimajor_altitude_km": 632.8912244205849,
+    "inclination_deg": 44.563462443367385,
+    "eccentricity": 0.004687116116374607,
+    "raan_rad": 1.500077691065501,
+    "argument_rad": 4.197041646471616,
+    "anomaly_rad": 0.8020887393436112
+  },
+  {
+    "satellite": "train-026",
+    "split": "train",
+    "semimajor_altitude_km": 607.9618766551009,
+    "inclination_deg": 47.68838134314778,
+    "eccentricity": 0.0014692830967314504,
+    "raan_rad": 4.764222530057902,
+    "argument_rad": 3.482659905242105,
+    "anomaly_rad": 2.752946291325593
+  },
+  {
+    "satellite": "train-027",
+    "split": "train",
+    "semimajor_altitude_km": 498.1252083627546,
+    "inclination_deg": 58.44097679584154,
+    "eccentricity": 0.0029222804536276847,
+    "raan_rad": 0.27074679427151266,
+    "argument_rad": 6.065594012290778,
+    "anomaly_rad": 0.19141603479638586
+  },
+  {
+    "satellite": "train-028",
+    "split": "train",
+    "semimajor_altitude_km": 474.0938155247748,
+    "inclination_deg": 48.97437592986138,
+    "eccentricity": 0.00166283953257547,
+    "raan_rad": 2.105715544082033,
+    "argument_rad": 3.566117588981393,
+    "anomaly_rad": 6.018298481033665
+  },
+  {
+    "satellite": "train-029",
+    "split": "train",
+    "semimajor_altitude_km": 637.262444851569,
+    "inclination_deg": 37.21687927535706,
+    "eccentricity": 0.006826509250079995,
+    "raan_rad": 1.0544671241240968,
+    "argument_rad": 5.098383102274843,
+    "anomaly_rad": 1.8620044850073538
+  },
+  {
+    "satellite": "train-030",
+    "split": "train",
+    "semimajor_altitude_km": 593.5668714565796,
+    "inclination_deg": 56.56379615082581,
+    "eccentricity": 0.00680441007805084,
+    "raan_rad": 6.155170740037034,
+    "argument_rad": 1.7308972471181139,
+    "anomaly_rad": 3.9477784759195864
+  },
+  {
+    "satellite": "train-031",
+    "split": "train",
+    "semimajor_altitude_km": 597.8521591274068,
+    "inclination_deg": 37.3888801272682,
+    "eccentricity": 0.005303690702150791,
+    "raan_rad": 2.020141561815057,
+    "argument_rad": 1.0145399164116402,
+    "anomaly_rad": 3.4524316189004365
+  },
+  {
+    "satellite": "train-032",
+    "split": "train",
+    "semimajor_altitude_km": 542.3767194155135,
+    "inclination_deg": 52.31239498879719,
+    "eccentricity": 0.005135340723226855,
+    "raan_rad": 3.1332288627728806,
+    "argument_rad": 5.687229625764789,
+    "anomaly_rad": 1.117867877268993
+  },
+  {
+    "satellite": "train-033",
+    "split": "train",
+    "semimajor_altitude_km": 507.7583298018851,
+    "inclination_deg": 45.686649235402555,
+    "eccentricity": 0.006195056160629288,
+    "raan_rad": 4.097253306731641,
+    "argument_rad": 1.2969919504392897,
+    "anomaly_rad": 4.677466349028687
+  },
+  {
+    "satellite": "train-034",
+    "split": "train",
+    "semimajor_altitude_km": 604.3074075813488,
+    "inclination_deg": 58.10724396717357,
+    "eccentricity": 0.0006269832393774895,
+    "raan_rad": 1.3329095829796778,
+    "argument_rad": 5.625870046748279,
+    "anomaly_rad": 5.525634597248611
+  },
+  {
+    "satellite": "train-035",
+    "split": "train",
+    "semimajor_altitude_km": 491.11453151933455,
+    "inclination_deg": 51.541269749441476,
+    "eccentricity": 0.0021014660675814493,
+    "raan_rad": 2.6155943603069236,
+    "argument_rad": 0.13160033710239583,
+    "anomaly_rad": 1.7703517796118007
+  },
+  {
+    "satellite": "train-036",
+    "split": "train",
+    "semimajor_altitude_km": 504.13618028918205,
+    "inclination_deg": 62.57391472856222,
+    "eccentricity": 0.0047037617330626036,
+    "raan_rad": 1.1153690233115698,
+    "argument_rad": 2.6864672515667074,
+    "anomaly_rad": 3.0972092516494127
+  },
+  {
+    "satellite": "train-037",
+    "split": "train",
+    "semimajor_altitude_km": 577.4720234852113,
+    "inclination_deg": 50.97343549545076,
+    "eccentricity": 0.003367941658754747,
+    "raan_rad": 1.9527700851606846,
+    "argument_rad": 3.6128284653395,
+    "anomaly_rad": 6.131333370571395
+  },
+  {
+    "satellite": "train-038",
+    "split": "train",
+    "semimajor_altitude_km": 560.5973928772432,
+    "inclination_deg": 61.61036440155333,
+    "eccentricity": 0.00012217948146919254,
+    "raan_rad": 1.276098617343786,
+    "argument_rad": 5.433497461801954,
+    "anomaly_rad": 3.5781037392345287
+  },
+  {
+    "satellite": "train-039",
+    "split": "train",
+    "semimajor_altitude_km": 547.5116157274077,
+    "inclination_deg": 46.06412866043986,
+    "eccentricity": 0.002362125703116005,
+    "raan_rad": 4.26521340378097,
+    "argument_rad": 2.2979811275407673,
+    "anomaly_rad": 2.7346603187518492
+  },
+  {
+    "satellite": "train-040",
+    "split": "train",
+    "semimajor_altitude_km": 605.3696575855173,
+    "inclination_deg": 63.38548917562386,
+    "eccentricity": 0.007949254827317164,
+    "raan_rad": 3.046812292390724,
+    "argument_rad": 0.8681417762860731,
+    "anomaly_rad": 0.15659961262223882
+  },
+  {
+    "satellite": "train-041",
+    "split": "train",
+    "semimajor_altitude_km": 548.9313411116177,
+    "inclination_deg": 37.29064974455984,
+    "eccentricity": 0.0009417046398587558,
+    "raan_rad": 1.4755374538022041,
+    "argument_rad": 6.23287645780958,
+    "anomaly_rad": 1.0193120890181577
+  },
+  {
+    "satellite": "train-042",
+    "split": "train",
+    "semimajor_altitude_km": 472.0264237994832,
+    "inclination_deg": 62.47771323430856,
+    "eccentricity": 0.00497655792762271,
+    "raan_rad": 4.648933221782649,
+    "argument_rad": 2.228856035376438,
+    "anomaly_rad": 5.867442699847555
+  },
+  {
+    "satellite": "train-043",
+    "split": "train",
+    "semimajor_altitude_km": 645.2201270714137,
+    "inclination_deg": 51.75367105333612,
+    "eccentricity": 0.007894722212223097,
+    "raan_rad": 3.1779996460852216,
+    "argument_rad": 2.762969690991761,
+    "anomaly_rad": 4.935027377732123
+  },
+  {
+    "satellite": "train-044",
+    "split": "train",
+    "semimajor_altitude_km": 578.8495338660678,
+    "inclination_deg": 41.01591070049707,
+    "eccentricity": 0.004119514287965446,
+    "raan_rad": 0.10341783400959795,
+    "argument_rad": 5.501933113428822,
+    "anomaly_rad": 3.408288022089049
+  },
+  {
+    "satellite": "train-045",
+    "split": "train",
+    "semimajor_altitude_km": 459.23740570868625,
+    "inclination_deg": 63.13276778248436,
+    "eccentricity": 0.007995491742169477,
+    "raan_rad": 4.632626615068712,
+    "argument_rad": 2.7100851876137315,
+    "anomaly_rad": 3.7159969432637574
+  },
+  {
+    "satellite": "train-046",
+    "split": "train",
+    "semimajor_altitude_km": 452.046380431334,
+    "inclination_deg": 38.25347969038142,
+    "eccentricity": 0.0026479955053639046,
+    "raan_rad": 2.5840773808147417,
+    "argument_rad": 4.749766596444934,
+    "anomaly_rad": 1.0727268237573726
+  },
+  {
+    "satellite": "train-047",
+    "split": "train",
+    "semimajor_altitude_km": 473.2209472191822,
+    "inclination_deg": 55.923917999259174,
+    "eccentricity": 0.007104256959895714,
+    "raan_rad": 5.527112354843153,
+    "argument_rad": 4.6615969734790434,
+    "anomaly_rad": 6.179935608514299
+  },
+  {
+    "satellite": "train-048",
+    "split": "train",
+    "semimajor_altitude_km": 554.4184213181555,
+    "inclination_deg": 58.234063189264376,
+    "eccentricity": 0.003337419475104724,
+    "raan_rad": 2.2195707764641646,
+    "argument_rad": 5.722863986951771,
+    "anomaly_rad": 2.706211917628688
+  },
+  {
+    "satellite": "train-049",
+    "split": "train",
+    "semimajor_altitude_km": 599.2942073917472,
+    "inclination_deg": 49.910678471012524,
+    "eccentricity": 0.0008977033925465437,
+    "raan_rad": 0.7971859085350722,
+    "argument_rad": 3.205194739270258,
+    "anomaly_rad": 4.446471370303342
+  },
+  {
+    "satellite": "train-050",
+    "split": "train",
+    "semimajor_altitude_km": 598.4968423346481,
+    "inclination_deg": 45.070912508343554,
+    "eccentricity": 7.368526397256936e-05,
+    "raan_rad": 3.351177260722318,
+    "argument_rad": 1.191084538057671,
+    "anomaly_rad": 2.011373076441004
+  },
+  {
+    "satellite": "train-051",
+    "split": "train",
+    "semimajor_altitude_km": 563.2898274362731,
+    "inclination_deg": 46.754989169323935,
+    "eccentricity": 0.0036720130907393306,
+    "raan_rad": 0.31704292452496624,
+    "argument_rad": 1.1499197654603959,
+    "anomaly_rad": 5.289785962009478
+  },
+  {
+    "satellite": "train-052",
+    "split": "train",
+    "semimajor_altitude_km": 552.3762854730589,
+    "inclination_deg": 61.553531180754476,
+    "eccentricity": 0.006858408007092775,
+    "raan_rad": 1.2137227530980548,
+    "argument_rad": 2.510740989014113,
+    "anomaly_rad": 3.303562489893811
+  },
+  {
+    "satellite": "train-053",
+    "split": "train",
+    "semimajor_altitude_km": 469.5030299270708,
+    "inclination_deg": 37.560684851794534,
+    "eccentricity": 0.006731892467229456,
+    "raan_rad": 5.1943948714271135,
+    "argument_rad": 2.4082780944503486,
+    "anomaly_rad": 4.439602493558109
+  },
+  {
+    "satellite": "train-054",
+    "split": "train",
+    "semimajor_altitude_km": 553.5866219871331,
+    "inclination_deg": 57.42960559278316,
+    "eccentricity": 0.0025214808273496835,
+    "raan_rad": 2.978457426771746,
+    "argument_rad": 5.610610097089707,
+    "anomaly_rad": 5.1311260251436
+  },
+  {
+    "satellite": "train-055",
+    "split": "train",
+    "semimajor_altitude_km": 511.9927510342403,
+    "inclination_deg": 61.45313242544934,
+    "eccentricity": 0.003189751491535479,
+    "raan_rad": 4.287519643360334,
+    "argument_rad": 4.47055263877338,
+    "anomaly_rad": 2.5238610948645124
+  },
+  {
+    "satellite": "train-056",
+    "split": "train",
+    "semimajor_altitude_km": 615.4187614026719,
+    "inclination_deg": 48.96055151227167,
+    "eccentricity": 0.0076855096162219035,
+    "raan_rad": 5.885452984059636,
+    "argument_rad": 5.656534441616762,
+    "anomaly_rad": 5.707353120222245
+  },
+  {
+    "satellite": "train-057",
+    "split": "train",
+    "semimajor_altitude_km": 479.40930918834835,
+    "inclination_deg": 54.450023033152306,
+    "eccentricity": 0.005928916320661772,
+    "raan_rad": 3.322291830675259,
+    "argument_rad": 3.3251935213673884,
+    "anomaly_rad": 1.2656277249312
+  },
+  {
+    "satellite": "train-058",
+    "split": "train",
+    "semimajor_altitude_km": 482.15730090562255,
+    "inclination_deg": 58.49402987831453,
+    "eccentricity": 0.0011968446127463457,
+    "raan_rad": 4.575396510818584,
+    "argument_rad": 0.4842355909167234,
+    "anomaly_rad": 2.590256405517259
+  },
+  {
+    "satellite": "train-059",
+    "split": "train",
+    "semimajor_altitude_km": 454.80226629871123,
+    "inclination_deg": 54.81118014481901,
+    "eccentricity": 0.0023433270075039563,
+    "raan_rad": 2.9386462977487713,
+    "argument_rad": 1.799810388704549,
+    "anomaly_rad": 3.240706336999185
+  },
+  {
+    "satellite": "train-060",
+    "split": "train",
+    "semimajor_altitude_km": 581.5293520015955,
+    "inclination_deg": 40.00740076356426,
+    "eccentricity": 0.006216392165633997,
+    "raan_rad": 4.916689052120311,
+    "argument_rad": 5.919801253771598,
+    "anomaly_rad": 2.391978738522588
+  },
+  {
+    "satellite": "train-061",
+    "split": "train",
+    "semimajor_altitude_km": 624.626252408318,
+    "inclination_deg": 37.81056478922946,
+    "eccentricity": 0.007951250475471128,
+    "raan_rad": 1.3333388880761372,
+    "argument_rad": 2.348963451262573,
+    "anomaly_rad": 0.587499533210248
+  },
+  {
+    "satellite": "train-062",
+    "split": "train",
+    "semimajor_altitude_km": 617.0283468415115,
+    "inclination_deg": 49.57798935279015,
+    "eccentricity": 0.0076992115494871885,
+    "raan_rad": 0.9086472720476496,
+    "argument_rad": 5.603481405653147,
+    "anomaly_rad": 2.2590948917291325
+  },
+  {
+    "satellite": "train-063",
+    "split": "train",
+    "semimajor_altitude_km": 497.25813673849245,
+    "inclination_deg": 54.713694654727604,
+    "eccentricity": 0.00024150775407591674,
+    "raan_rad": 3.301623654403533,
+    "argument_rad": 2.9757491590611793,
+    "anomaly_rad": 0.30476673636276636
+  },
+  {
+    "satellite": "train-064",
+    "split": "train",
+    "semimajor_altitude_km": 536.8364466441577,
+    "inclination_deg": 44.1475754797587,
+    "eccentricity": 0.001989185593317221,
+    "raan_rad": 5.845208014531666,
+    "argument_rad": 3.759209945776224,
+    "anomaly_rad": 0.9686001574814196
+  },
+  {
+    "satellite": "train-065",
+    "split": "train",
+    "semimajor_altitude_km": 601.4263250670436,
+    "inclination_deg": 46.08700070559737,
+    "eccentricity": 0.0047908053105303935,
+    "raan_rad": 2.3872015961167166,
+    "argument_rad": 4.012101922164429,
+    "anomaly_rad": 4.284736774904054
+  },
+  {
+    "satellite": "train-066",
+    "split": "train",
+    "semimajor_altitude_km": 506.7068532640212,
+    "inclination_deg": 59.93173062839768,
+    "eccentricity": 0.004945045997482063,
+    "raan_rad": 3.803014739906476,
+    "argument_rad": 1.3697716565447324,
+    "anomaly_rad": 1.5956937363707464
+  },
+  {
+    "satellite": "train-067",
+    "split": "train",
+    "semimajor_altitude_km": 529.0754104758212,
+    "inclination_deg": 36.01618094545136,
+    "eccentricity": 0.00043784914640578076,
+    "raan_rad": 4.1637542368786775,
+    "argument_rad": 1.988493439916619,
+    "anomaly_rad": 4.525429509372079
+  },
+  {
+    "satellite": "train-068",
+    "split": "train",
+    "semimajor_altitude_km": 464.9652885108444,
+    "inclination_deg": 57.203937498887896,
+    "eccentricity": 0.0017134306409643109,
+    "raan_rad": 5.463553557845039,
+    "argument_rad": 5.695910066293518,
+    "anomaly_rad": 4.331083235437572
+  },
+  {
+    "satellite": "train-069",
+    "split": "train",
+    "semimajor_altitude_km": 528.8573342580344,
+    "inclination_deg": 35.769436913838895,
+    "eccentricity": 0.006088905382734654,
+    "raan_rad": 3.5362870925308476,
+    "argument_rad": 0.5170511691993911,
+    "anomaly_rad": 3.586047507007858
+  },
+  {
+    "satellite": "train-070",
+    "split": "train",
+    "semimajor_altitude_km": 451.2311338670577,
+    "inclination_deg": 48.54129823694596,
+    "eccentricity": 0.004906053453361536,
+    "raan_rad": 5.043252880830344,
+    "argument_rad": 1.8259307698690084,
+    "anomaly_rad": 1.4579849774819902
+  },
+  {
+    "satellite": "train-071",
+    "split": "train",
+    "semimajor_altitude_km": 516.2187361426917,
+    "inclination_deg": 36.775839401311835,
+    "eccentricity": 0.007451995734225235,
+    "raan_rad": 5.533193401299219,
+    "argument_rad": 3.783333137404595,
+    "anomaly_rad": 0.46864660797181473
+  },
+  {
+    "satellite": "train-072",
+    "split": "train",
+    "semimajor_altitude_km": 466.7255302914698,
+    "inclination_deg": 62.96247225734713,
+    "eccentricity": 0.0009999964692581846,
+    "raan_rad": 0.915263698537219,
+    "argument_rad": 4.935254829993334,
+    "anomaly_rad": 1.894577675724117
+  },
+  {
+    "satellite": "train-073",
+    "split": "train",
+    "semimajor_altitude_km": 532.31083655993,
+    "inclination_deg": 47.30070292640171,
+    "eccentricity": 0.00560052844775136,
+    "raan_rad": 2.9677511073736884,
+    "argument_rad": 5.103234617458801,
+    "anomaly_rad": 3.1160775440152224
+  },
+  {
+    "satellite": "train-074",
+    "split": "train",
+    "semimajor_altitude_km": 508.0919232571752,
+    "inclination_deg": 40.837306628473826,
+    "eccentricity": 0.006040106015344428,
+    "raan_rad": 1.3792093870901947,
+    "argument_rad": 3.8258806107267,
+    "anomaly_rad": 3.778733901978906
+  },
+  {
+    "satellite": "train-075",
+    "split": "train",
+    "semimajor_altitude_km": 642.6495179696487,
+    "inclination_deg": 37.68862191313865,
+    "eccentricity": 0.0016601633818378546,
+    "raan_rad": 4.156660449043276,
+    "argument_rad": 2.079102782290695,
+    "anomaly_rad": 0.8079100112708737
+  },
+  {
+    "satellite": "train-076",
+    "split": "train",
+    "semimajor_altitude_km": 629.0737205903146,
+    "inclination_deg": 56.94429181977127,
+    "eccentricity": 0.0017804172180477754,
+    "raan_rad": 0.5982239845752846,
+    "argument_rad": 5.293032501774341,
+    "anomaly_rad": 3.5811765531829067
+  },
+  {
+    "satellite": "train-077",
+    "split": "train",
+    "semimajor_altitude_km": 635.9157250174972,
+    "inclination_deg": 50.51544611365239,
+    "eccentricity": 0.0018470268964951258,
+    "raan_rad": 0.8391954629073073,
+    "argument_rad": 2.625824294281789,
+    "anomaly_rad": 4.297808635392562
+  },
+  {
+    "satellite": "train-078",
+    "split": "train",
+    "semimajor_altitude_km": 450.86003815009707,
+    "inclination_deg": 46.8605541728137,
+    "eccentricity": 0.0032306276091936346,
+    "raan_rad": 4.2160884064732524,
+    "argument_rad": 1.2249819040063379,
+    "anomaly_rad": 5.50451925530757
+  },
+  {
+    "satellite": "train-079",
+    "split": "train",
+    "semimajor_altitude_km": 515.0176245667767,
+    "inclination_deg": 59.80423942512464,
+    "eccentricity": 0.006620980985747286,
+    "raan_rad": 5.559865624715745,
+    "argument_rad": 1.6262710579234527,
+    "anomaly_rad": 5.277032292865514
+  },
+  {
+    "satellite": "train-080",
+    "split": "train",
+    "semimajor_altitude_km": 496.1014735553687,
+    "inclination_deg": 46.98329006001042,
+    "eccentricity": 0.0014214649686865588,
+    "raan_rad": 3.04188422419795,
+    "argument_rad": 0.47246051453263466,
+    "anomaly_rad": 6.01201663964673
+  },
+  {
+    "satellite": "train-081",
+    "split": "train",
+    "semimajor_altitude_km": 452.59932232840856,
+    "inclination_deg": 49.89788433008929,
+    "eccentricity": 0.0067047623631399,
+    "raan_rad": 0.832615814970744,
+    "argument_rad": 3.751701434598965,
+    "anomaly_rad": 3.33688994897659
+  },
+  {
+    "satellite": "train-082",
+    "split": "train",
+    "semimajor_altitude_km": 601.5073129069677,
+    "inclination_deg": 55.95784225208081,
+    "eccentricity": 0.006600107742444622,
+    "raan_rad": 4.9843482704864,
+    "argument_rad": 3.6622170450471336,
+    "anomaly_rad": 2.1988898425729757
+  },
+  {
+    "satellite": "train-083",
+    "split": "train",
+    "semimajor_altitude_km": 471.4856706259918,
+    "inclination_deg": 39.91453378927241,
+    "eccentricity": 0.006969660595907285,
+    "raan_rad": 1.6744728172125076,
+    "argument_rad": 5.617360368905268,
+    "anomaly_rad": 1.9231972130838375
+  },
+  {
+    "satellite": "train-084",
+    "split": "train",
+    "semimajor_altitude_km": 461.45141182037173,
+    "inclination_deg": 43.69992449250902,
+    "eccentricity": 0.0030772046025032,
+    "raan_rad": 0.6514413282962634,
+    "argument_rad": 2.7002698418604782,
+    "anomaly_rad": 5.013623154626979
+  },
+  {
+    "satellite": "train-085",
+    "split": "train",
+    "semimajor_altitude_km": 532.7639772657269,
+    "inclination_deg": 49.812024417209855,
+    "eccentricity": 0.007990183601401702,
+    "raan_rad": 1.3528924893286978,
+    "argument_rad": 3.4175165857120584,
+    "anomaly_rad": 6.206255781742602
+  },
+  {
+    "satellite": "train-086",
+    "split": "train",
+    "semimajor_altitude_km": 549.1448866993593,
+    "inclination_deg": 52.74257919976375,
+    "eccentricity": 0.00437365132739978,
+    "raan_rad": 0.7242577515878152,
+    "argument_rad": 4.499612204328983,
+    "anomaly_rad": 5.730727662428192
+  },
+  {
+    "satellite": "train-087",
+    "split": "train",
+    "semimajor_altitude_km": 635.3152765729301,
+    "inclination_deg": 52.60006251555728,
+    "eccentricity": 0.0028200902962276383,
+    "raan_rad": 4.244356414241889,
+    "argument_rad": 5.93520431098897,
+    "anomaly_rad": 6.145808860543015
+  },
+  {
+    "satellite": "train-088",
+    "split": "train",
+    "semimajor_altitude_km": 506.5910252413196,
+    "inclination_deg": 63.0705966752248,
+    "eccentricity": 0.005842312730995436,
+    "raan_rad": 5.4779141673870555,
+    "argument_rad": 1.0523142097483251,
+    "anomaly_rad": 6.133938938216721
+  },
+  {
+    "satellite": "train-089",
+    "split": "train",
+    "semimajor_altitude_km": 600.7035413826038,
+    "inclination_deg": 39.99552134267621,
+    "eccentricity": 0.004320966497548497,
+    "raan_rad": 0.7007851304039714,
+    "argument_rad": 4.552719408421055,
+    "anomaly_rad": 3.7396302484323187
+  },
+  {
+    "satellite": "train-090",
+    "split": "train",
+    "semimajor_altitude_km": 565.6574273213872,
+    "inclination_deg": 60.41687702059731,
+    "eccentricity": 0.006157833546615665,
+    "raan_rad": 0.5762645697527345,
+    "argument_rad": 4.788661107954789,
+    "anomaly_rad": 3.402129128330781
+  },
+  {
+    "satellite": "train-091",
+    "split": "train",
+    "semimajor_altitude_km": 487.7561293615098,
+    "inclination_deg": 45.415378370996976,
+    "eccentricity": 0.00407355266620315,
+    "raan_rad": 5.3962871845828255,
+    "argument_rad": 5.541159145106495,
+    "anomaly_rad": 0.6415268120032785
+  },
+  {
+    "satellite": "train-092",
+    "split": "train",
+    "semimajor_altitude_km": 538.4308911875305,
+    "inclination_deg": 60.305875809717215,
+    "eccentricity": 0.00481890983892867,
+    "raan_rad": 5.3731405458542465,
+    "argument_rad": 3.7526959866685234,
+    "anomaly_rad": 1.4013757991794815
+  },
+  {
+    "satellite": "train-093",
+    "split": "train",
+    "semimajor_altitude_km": 550.5705141407593,
+    "inclination_deg": 50.454645223043826,
+    "eccentricity": 0.007152623329705349,
+    "raan_rad": 2.235257459953317,
+    "argument_rad": 1.4764833274297902,
+    "anomaly_rad": 4.705213395713844
+  },
+  {
+    "satellite": "train-094",
+    "split": "train",
+    "semimajor_altitude_km": 533.9161860676918,
+    "inclination_deg": 49.53051974565649,
+    "eccentricity": 0.00781269187867196,
+    "raan_rad": 4.238922040657784,
+    "argument_rad": 4.221351483394429,
+    "anomaly_rad": 5.867793424491215
+  },
+  {
+    "satellite": "train-095",
+    "split": "train",
+    "semimajor_altitude_km": 593.2589628775366,
+    "inclination_deg": 63.643171268453465,
+    "eccentricity": 0.005066424039719088,
+    "raan_rad": 3.6908366993817774,
+    "argument_rad": 1.7858473070954934,
+    "anomaly_rad": 1.4501345620570574
+  },
+  {
+    "satellite": "val-000",
+    "split": "val",
+    "semimajor_altitude_km": 556.3004729466039,
+    "inclination_deg": 36.7716895693487,
+    "eccentricity": 0.0013463039602747973,
+    "raan_rad": 4.450815090023944,
+    "argument_rad": 4.266353478546685,
+    "anomaly_rad": 0.17808519662500608
+  },
+  {
+    "satellite": "val-001",
+    "split": "val",
+    "semimajor_altitude_km": 482.63303958202846,
+    "inclination_deg": 53.53473037565534,
+    "eccentricity": 0.003261233214643416,
+    "raan_rad": 3.7005818148117027,
+    "argument_rad": 0.8086565345343228,
+    "anomaly_rad": 5.419157272799567
+  },
+  {
+    "satellite": "val-002",
+    "split": "val",
+    "semimajor_altitude_km": 501.78703350079894,
+    "inclination_deg": 46.23212783685435,
+    "eccentricity": 0.0035949601774744647,
+    "raan_rad": 3.7248560713803895,
+    "argument_rad": 6.160780311385624,
+    "anomaly_rad": 1.3158823425159045
+  },
+  {
+    "satellite": "val-003",
+    "split": "val",
+    "semimajor_altitude_km": 482.47703923783405,
+    "inclination_deg": 39.36009873273149,
+    "eccentricity": 0.006197864389463299,
+    "raan_rad": 2.4030400319382474,
+    "argument_rad": 5.824303595455333,
+    "anomaly_rad": 0.41820461728690234
+  },
+  {
+    "satellite": "val-004",
+    "split": "val",
+    "semimajor_altitude_km": 556.3112852996624,
+    "inclination_deg": 57.71709094407273,
+    "eccentricity": 0.004056683481699538,
+    "raan_rad": 2.554736431535857,
+    "argument_rad": 5.098904640969742,
+    "anomaly_rad": 3.1987941332486485
+  },
+  {
+    "satellite": "val-005",
+    "split": "val",
+    "semimajor_altitude_km": 631.3073105379392,
+    "inclination_deg": 42.15808314984597,
+    "eccentricity": 0.004787645828685206,
+    "raan_rad": 3.986550536697794,
+    "argument_rad": 5.699671222899877,
+    "anomaly_rad": 0.5859423207213484
+  },
+  {
+    "satellite": "val-006",
+    "split": "val",
+    "semimajor_altitude_km": 611.1440793429297,
+    "inclination_deg": 55.5046921434277,
+    "eccentricity": 0.006884875310213094,
+    "raan_rad": 3.8255714414072726,
+    "argument_rad": 2.851137692005922,
+    "anomaly_rad": 5.003466316863825
+  },
+  {
+    "satellite": "val-007",
+    "split": "val",
+    "semimajor_altitude_km": 506.836894962348,
+    "inclination_deg": 36.662546112525376,
+    "eccentricity": 0.005999720601762451,
+    "raan_rad": 5.104295591569763,
+    "argument_rad": 5.206744951714319,
+    "anomaly_rad": 2.8129127634529985
+  },
+  {
+    "satellite": "val-008",
+    "split": "val",
+    "semimajor_altitude_km": 596.5347800686674,
+    "inclination_deg": 56.409279099038315,
+    "eccentricity": 0.0023083938885102152,
+    "raan_rad": 4.8100236043986575,
+    "argument_rad": 6.05819021831368,
+    "anomaly_rad": 2.2123363383469723
+  },
+  {
+    "satellite": "val-009",
+    "split": "val",
+    "semimajor_altitude_km": 504.6891016257957,
+    "inclination_deg": 52.515751857636026,
+    "eccentricity": 0.007022481497182565,
+    "raan_rad": 3.8220088840472477,
+    "argument_rad": 6.094992001400648,
+    "anomaly_rad": 5.796954078848393
+  },
+  {
+    "satellite": "val-010",
+    "split": "val",
+    "semimajor_altitude_km": 592.143957666609,
+    "inclination_deg": 56.20681579003321,
+    "eccentricity": 0.001424429794024526,
+    "raan_rad": 2.142876836763674,
+    "argument_rad": 5.0902957454889926,
+    "anomaly_rad": 2.516141428081863
+  },
+  {
+    "satellite": "val-011",
+    "split": "val",
+    "semimajor_altitude_km": 495.6113390301367,
+    "inclination_deg": 36.893698578427184,
+    "eccentricity": 0.001784371863145859,
+    "raan_rad": 3.6261080713718945,
+    "argument_rad": 5.8065231925829695,
+    "anomaly_rad": 2.4600008116150582
+  },
+  {
+    "satellite": "val-012",
+    "split": "val",
+    "semimajor_altitude_km": 607.9070535015854,
+    "inclination_deg": 38.86386190656194,
+    "eccentricity": 0.00658189057014377,
+    "raan_rad": 5.827861820673466,
+    "argument_rad": 3.1576814206390877,
+    "anomaly_rad": 2.8574358566976494
+  },
+  {
+    "satellite": "val-013",
+    "split": "val",
+    "semimajor_altitude_km": 631.621906697739,
+    "inclination_deg": 41.83457817816337,
+    "eccentricity": 0.007365019017699323,
+    "raan_rad": 5.764823872394164,
+    "argument_rad": 6.016437286915869,
+    "anomaly_rad": 5.599117766666539
+  },
+  {
+    "satellite": "val-014",
+    "split": "val",
+    "semimajor_altitude_km": 555.1469265804673,
+    "inclination_deg": 55.45302301263963,
+    "eccentricity": 0.004263971924134639,
+    "raan_rad": 1.8959321082959448,
+    "argument_rad": 6.224372188288266,
+    "anomaly_rad": 0.156897763349952
+  },
+  {
+    "satellite": "val-015",
+    "split": "val",
+    "semimajor_altitude_km": 500.3055654756742,
+    "inclination_deg": 62.85936160133847,
+    "eccentricity": 0.0076184683974625704,
+    "raan_rad": 1.7518483224797166,
+    "argument_rad": 6.281823779330142,
+    "anomaly_rad": 5.105992575049395
+  },
+  {
+    "satellite": "val-016",
+    "split": "val",
+    "semimajor_altitude_km": 605.3717115614875,
+    "inclination_deg": 52.15536397539985,
+    "eccentricity": 0.003154178494111094,
+    "raan_rad": 0.058062420216196835,
+    "argument_rad": 2.297010299618149,
+    "anomaly_rad": 2.354835121345869
+  },
+  {
+    "satellite": "val-017",
+    "split": "val",
+    "semimajor_altitude_km": 466.29756939193965,
+    "inclination_deg": 37.53512668882274,
+    "eccentricity": 0.002106949279747352,
+    "raan_rad": 3.1061117462514116,
+    "argument_rad": 4.863936328460052,
+    "anomaly_rad": 3.700036316963206
+  },
+  {
+    "satellite": "val-018",
+    "split": "val",
+    "semimajor_altitude_km": 558.192503895174,
+    "inclination_deg": 58.897914349398675,
+    "eccentricity": 0.00678400998833766,
+    "raan_rad": 2.7636208369810884,
+    "argument_rad": 3.8149409015665112,
+    "anomaly_rad": 5.788531717135546
+  },
+  {
+    "satellite": "val-019",
+    "split": "val",
+    "semimajor_altitude_km": 465.9620777268866,
+    "inclination_deg": 53.2671968834475,
+    "eccentricity": 0.006212100653741601,
+    "raan_rad": 2.6850152095519286,
+    "argument_rad": 4.712021592336158,
+    "anomaly_rad": 5.278107006603385
+  },
+  {
+    "satellite": "val-020",
+    "split": "val",
+    "semimajor_altitude_km": 602.8687931692458,
+    "inclination_deg": 51.10420771202582,
+    "eccentricity": 0.005794960914088818,
+    "raan_rad": 4.45688878118885,
+    "argument_rad": 2.4087599343049177,
+    "anomaly_rad": 0.13362380323989417
+  },
+  {
+    "satellite": "val-021",
+    "split": "val",
+    "semimajor_altitude_km": 639.9433166214393,
+    "inclination_deg": 49.03085479400993,
+    "eccentricity": 0.002388055798946003,
+    "raan_rad": 1.5741373642379854,
+    "argument_rad": 2.510091306858575,
+    "anomaly_rad": 3.630928971082048
+  },
+  {
+    "satellite": "val-022",
+    "split": "val",
+    "semimajor_altitude_km": 553.5513047123527,
+    "inclination_deg": 46.46583861980771,
+    "eccentricity": 0.0006221546263875712,
+    "raan_rad": 6.162281247262503,
+    "argument_rad": 0.09872088959464781,
+    "anomaly_rad": 5.779062332486786
+  },
+  {
+    "satellite": "val-023",
+    "split": "val",
+    "semimajor_altitude_km": 456.35728637970834,
+    "inclination_deg": 50.162807734003046,
+    "eccentricity": 0.006283742282438817,
+    "raan_rad": 4.169368322032531,
+    "argument_rad": 4.434310160436067,
+    "anomaly_rad": 0.6125616797648769
+  },
+  {
+    "satellite": "test-000",
+    "split": "test",
+    "semimajor_altitude_km": 622.8104166096284,
+    "inclination_deg": 54.49478233614829,
+    "eccentricity": 0.007534035068192836,
+    "raan_rad": 6.253332416209672,
+    "argument_rad": 4.741552575825134,
+    "anomaly_rad": 5.0589313958868
+  },
+  {
+    "satellite": "test-001",
+    "split": "test",
+    "semimajor_altitude_km": 642.206101923708,
+    "inclination_deg": 56.57967851783629,
+    "eccentricity": 0.004893597847003606,
+    "raan_rad": 3.310959573460945,
+    "argument_rad": 3.285052835434671,
+    "anomaly_rad": 4.020942770611932
+  },
+  {
+    "satellite": "test-002",
+    "split": "test",
+    "semimajor_altitude_km": 574.9357334971388,
+    "inclination_deg": 35.042432181209,
+    "eccentricity": 0.0011940498524879474,
+    "raan_rad": 2.6185934081893163,
+    "argument_rad": 1.8069953685959645,
+    "anomaly_rad": 4.23811809269073
+  },
+  {
+    "satellite": "test-003",
+    "split": "test",
+    "semimajor_altitude_km": 648.1330729273562,
+    "inclination_deg": 42.97517982549053,
+    "eccentricity": 0.006485560227482619,
+    "raan_rad": 2.3333471554193657,
+    "argument_rad": 4.5477336756622675,
+    "anomaly_rad": 0.557574997975428
+  },
+  {
+    "satellite": "test-004",
+    "split": "test",
+    "semimajor_altitude_km": 574.786608693428,
+    "inclination_deg": 50.617182208021134,
+    "eccentricity": 0.006632637186437845,
+    "raan_rad": 0.7449606543436372,
+    "argument_rad": 3.2781785622714104,
+    "anomaly_rad": 5.4246824362023345
+  },
+  {
+    "satellite": "test-005",
+    "split": "test",
+    "semimajor_altitude_km": 588.9500443807376,
+    "inclination_deg": 39.82255836993944,
+    "eccentricity": 0.006826894873281837,
+    "raan_rad": 1.4513504758214866,
+    "argument_rad": 0.46307139190990304,
+    "anomaly_rad": 0.5333301075672567
+  },
+  {
+    "satellite": "test-006",
+    "split": "test",
+    "semimajor_altitude_km": 606.8503482635142,
+    "inclination_deg": 60.21086634690597,
+    "eccentricity": 0.007045100569839242,
+    "raan_rad": 4.7399752783332785,
+    "argument_rad": 5.617346733837963,
+    "anomaly_rad": 5.828294336329707
+  },
+  {
+    "satellite": "test-007",
+    "split": "test",
+    "semimajor_altitude_km": 557.4325897403087,
+    "inclination_deg": 53.967770727035514,
+    "eccentricity": 0.007627501537198728,
+    "raan_rad": 3.23080291599119,
+    "argument_rad": 1.5126498141700953,
+    "anomaly_rad": 5.897511739546632
+  },
+  {
+    "satellite": "test-008",
+    "split": "test",
+    "semimajor_altitude_km": 460.135310540084,
+    "inclination_deg": 52.50039299163915,
+    "eccentricity": 0.007435650255795504,
+    "raan_rad": 4.676967194549818,
+    "argument_rad": 3.8043533495182733,
+    "anomaly_rad": 3.0563746041923148
+  },
+  {
+    "satellite": "test-009",
+    "split": "test",
+    "semimajor_altitude_km": 504.51410986478305,
+    "inclination_deg": 51.900066880869346,
+    "eccentricity": 0.0059086767209001025,
+    "raan_rad": 3.5262098180032395,
+    "argument_rad": 4.815382894739092,
+    "anomaly_rad": 6.076566014828532
+  },
+  {
+    "satellite": "test-010",
+    "split": "test",
+    "semimajor_altitude_km": 577.8836264062135,
+    "inclination_deg": 56.23634278962176,
+    "eccentricity": 0.006794276698251774,
+    "raan_rad": 3.4756584993646626,
+    "argument_rad": 1.811755026319307,
+    "anomaly_rad": 4.985671525827027
+  },
+  {
+    "satellite": "test-011",
+    "split": "test",
+    "semimajor_altitude_km": 614.966270476117,
+    "inclination_deg": 64.39618670790222,
+    "eccentricity": 0.00016953988773784357,
+    "raan_rad": 3.1857696772650352,
+    "argument_rad": 0.38478536273990194,
+    "anomaly_rad": 3.118253922225192
+  },
+  {
+    "satellite": "test-012",
+    "split": "test",
+    "semimajor_altitude_km": 545.4904628146949,
+    "inclination_deg": 41.5930887118186,
+    "eccentricity": 0.007993446373854617,
+    "raan_rad": 4.667372911337336,
+    "argument_rad": 2.425824700740279,
+    "anomaly_rad": 4.994294123085366
+  },
+  {
+    "satellite": "test-013",
+    "split": "test",
+    "semimajor_altitude_km": 499.36300028630063,
+    "inclination_deg": 43.536478848192516,
+    "eccentricity": 0.0062111066434688885,
+    "raan_rad": 4.367962744408005,
+    "argument_rad": 4.931139986046067,
+    "anomaly_rad": 2.446275673444108
+  },
+  {
+    "satellite": "test-014",
+    "split": "test",
+    "semimajor_altitude_km": 486.96018109321795,
+    "inclination_deg": 48.035626635332605,
+    "eccentricity": 0.0059254601258845584,
+    "raan_rad": 5.3176432535020774,
+    "argument_rad": 5.668911874800214,
+    "anomaly_rad": 6.237137397470839
+  },
+  {
+    "satellite": "test-015",
+    "split": "test",
+    "semimajor_altitude_km": 512.6479595144353,
+    "inclination_deg": 60.14150027369359,
+    "eccentricity": 0.007988016171717594,
+    "raan_rad": 1.756853503549774,
+    "argument_rad": 0.03179750665149838,
+    "anomaly_rad": 0.8952384757696994
+  },
+  {
+    "satellite": "test-016",
+    "split": "test",
+    "semimajor_altitude_km": 605.5364697613483,
+    "inclination_deg": 59.116201591439385,
+    "eccentricity": 0.002078014331245699,
+    "raan_rad": 5.907550640978054,
+    "argument_rad": 1.4857244078318432,
+    "anomaly_rad": 4.5776805506643745
+  },
+  {
+    "satellite": "test-017",
+    "split": "test",
+    "semimajor_altitude_km": 486.8974047555016,
+    "inclination_deg": 57.71721013087361,
+    "eccentricity": 0.0004065524326586783,
+    "raan_rad": 3.7081242915433825,
+    "argument_rad": 2.192655033937067,
+    "anomaly_rad": 4.14125613851301
+  },
+  {
+    "satellite": "test-018",
+    "split": "test",
+    "semimajor_altitude_km": 627.3586739297231,
+    "inclination_deg": 44.66385710297126,
+    "eccentricity": 0.007608561442045257,
+    "raan_rad": 2.839184424184956,
+    "argument_rad": 2.5125799222929652,
+    "anomaly_rad": 1.2850745556774334
+  },
+  {
+    "satellite": "test-019",
+    "split": "test",
+    "semimajor_altitude_km": 461.1301475390328,
+    "inclination_deg": 36.83258735930728,
+    "eccentricity": 0.006801160169438291,
+    "raan_rad": 0.045930823703376415,
+    "argument_rad": 4.073391755620965,
+    "anomaly_rad": 3.8304285122955553
+  },
+  {
+    "satellite": "test-020",
+    "split": "test",
+    "semimajor_altitude_km": 567.4470549801046,
+    "inclination_deg": 48.79612471507532,
+    "eccentricity": 0.0005114658866509867,
+    "raan_rad": 1.2090129857134868,
+    "argument_rad": 4.364180346326016,
+    "anomaly_rad": 5.598244214398485
+  },
+  {
+    "satellite": "test-021",
+    "split": "test",
+    "semimajor_altitude_km": 546.4401723496569,
+    "inclination_deg": 46.71234393795078,
+    "eccentricity": 0.006667340559170402,
+    "raan_rad": 0.252445600163459,
+    "argument_rad": 3.7609628891110427,
+    "anomaly_rad": 6.102418746960772
+  },
+  {
+    "satellite": "test-022",
+    "split": "test",
+    "semimajor_altitude_km": 536.0078738227878,
+    "inclination_deg": 44.05553097506204,
+    "eccentricity": 0.0029794406164281107,
+    "raan_rad": 3.6101540524460116,
+    "argument_rad": 5.540207740341963,
+    "anomaly_rad": 4.582029558938872
+  },
+  {
+    "satellite": "test-023",
+    "split": "test",
+    "semimajor_altitude_km": 518.4928845343422,
+    "inclination_deg": 46.47771327825181,
+    "eccentricity": 0.00508021829866832,
+    "raan_rad": 3.946222615934741,
+    "argument_rad": 0.7155867358862097,
+    "anomaly_rad": 3.624827681852785
+  },
+  {
+    "satellite": "ood-000",
+    "split": "ood",
+    "semimajor_altitude_km": 1024.1042226042275,
+    "inclination_deg": 91.90816041678156,
+    "eccentricity": 0.011638146551492473,
+    "raan_rad": 0.9335601188217586,
+    "argument_rad": 0.5433516389415254,
+    "anomaly_rad": 3.5010402055801695
+  },
+  {
+    "satellite": "ood-001",
+    "split": "ood",
+    "semimajor_altitude_km": 1034.2957426208525,
+    "inclination_deg": 99.24560927253854,
+    "eccentricity": 0.009100849298232622,
+    "raan_rad": 0.5798227615178467,
+    "argument_rad": 3.638359261175283,
+    "anomaly_rad": 3.235100735582558
+  },
+  {
+    "satellite": "ood-002",
+    "split": "ood",
+    "semimajor_altitude_km": 804.292013031853,
+    "inclination_deg": 101.48930555886729,
+    "eccentricity": 0.003294411185902382,
+    "raan_rad": 2.9126774682676317,
+    "argument_rad": 2.871528640015844,
+    "anomaly_rad": 4.27438436906208
+  },
+  {
+    "satellite": "ood-003",
+    "split": "ood",
+    "semimajor_altitude_km": 1058.6416763297934,
+    "inclination_deg": 101.7003764184305,
+    "eccentricity": 0.003181179718197147,
+    "raan_rad": 1.4372927692368287,
+    "argument_rad": 2.692383015994433,
+    "anomaly_rad": 2.2959860175633056
+  },
+  {
+    "satellite": "ood-004",
+    "split": "ood",
+    "semimajor_altitude_km": 1015.6536099365572,
+    "inclination_deg": 98.21750237926526,
+    "eccentricity": 0.006756479233135089,
+    "raan_rad": 3.797579954769877,
+    "argument_rad": 2.3937525288647725,
+    "anomaly_rad": 5.3916835072392475
+  },
+  {
+    "satellite": "ood-005",
+    "split": "ood",
+    "semimajor_altitude_km": 1024.2827974882257,
+    "inclination_deg": 101.94020954954489,
+    "eccentricity": 0.014870313904674621,
+    "raan_rad": 4.317225552625723,
+    "argument_rad": 4.097047265829148,
+    "anomaly_rad": 4.8145670268651415
+  },
+  {
+    "satellite": "ood-006",
+    "split": "ood",
+    "semimajor_altitude_km": 989.8176209577076,
+    "inclination_deg": 104.32567184065459,
+    "eccentricity": 0.0060992653900450375,
+    "raan_rad": 2.320231950324874,
+    "argument_rad": 0.5387231786135775,
+    "anomaly_rad": 5.924250295889295
+  },
+  {
+    "satellite": "ood-007",
+    "split": "ood",
+    "semimajor_altitude_km": 824.5731723318088,
+    "inclination_deg": 103.6529419499239,
+    "eccentricity": 0.005319210513541922,
+    "raan_rad": 6.229072864706061,
+    "argument_rad": 0.8253074250188137,
+    "anomaly_rad": 1.5195871057020007
+  },
+  {
+    "satellite": "ood-008",
+    "split": "ood",
+    "semimajor_altitude_km": 1037.1659008997322,
+    "inclination_deg": 95.83755978930685,
+    "eccentricity": 0.00661434684045619,
+    "raan_rad": 1.262919009274531,
+    "argument_rad": 0.9819754670758467,
+    "anomaly_rad": 5.395094003532987
+  },
+  {
+    "satellite": "ood-009",
+    "split": "ood",
+    "semimajor_altitude_km": 977.5389131994524,
+    "inclination_deg": 101.7932853289739,
+    "eccentricity": 0.005498748135570572,
+    "raan_rad": 3.0579502257079665,
+    "argument_rad": 5.754257322596061,
+    "anomaly_rad": 5.687813541563331
+  },
+  {
+    "satellite": "ood-010",
+    "split": "ood",
+    "semimajor_altitude_km": 978.6732416403668,
+    "inclination_deg": 100.22121215867958,
+    "eccentricity": 0.0011222927013259548,
+    "raan_rad": 2.161677933982531,
+    "argument_rad": 3.564525128744557,
+    "anomaly_rad": 2.7769480822448154
+  },
+  {
+    "satellite": "ood-011",
+    "split": "ood",
+    "semimajor_altitude_km": 892.2339935206451,
+    "inclination_deg": 100.54225429311217,
+    "eccentricity": 0.0035351626829707933,
+    "raan_rad": 5.718320001621305,
+    "argument_rad": 1.3011755090277497,
+    "anomaly_rad": 4.510739492903793
+  },
+  {
+    "satellite": "ood-012",
+    "split": "ood",
+    "semimajor_altitude_km": 948.298391834486,
+    "inclination_deg": 100.9951154824718,
+    "eccentricity": 0.006083456846751676,
+    "raan_rad": 2.2225787572100693,
+    "argument_rad": 4.048734461877104,
+    "anomaly_rad": 6.051948232422832
+  },
+  {
+    "satellite": "ood-013",
+    "split": "ood",
+    "semimajor_altitude_km": 1006.55342533656,
+    "inclination_deg": 90.24155859903875,
+    "eccentricity": 0.0004637071047376667,
+    "raan_rad": 1.3402503941312365,
+    "argument_rad": 2.2195858410143883,
+    "anomaly_rad": 1.0020052001322948
+  },
+  {
+    "satellite": "ood-014",
+    "split": "ood",
+    "semimajor_altitude_km": 1086.04874985742,
+    "inclination_deg": 93.98668307017506,
+    "eccentricity": 0.00687981736183026,
+    "raan_rad": 0.8839852566432784,
+    "argument_rad": 1.9169390924124354,
+    "anomaly_rad": 3.4294460695450253
+  },
+  {
+    "satellite": "ood-015",
+    "split": "ood",
+    "semimajor_altitude_km": 925.5674710512875,
+    "inclination_deg": 91.3329542271968,
+    "eccentricity": 0.011217382608379149,
+    "raan_rad": 6.092131358292523,
+    "argument_rad": 1.4799406451198633,
+    "anomaly_rad": 1.3922065198106093
+  },
+  {
+    "satellite": "ood-016",
+    "split": "ood",
+    "semimajor_altitude_km": 1026.564798301823,
+    "inclination_deg": 96.81307583205191,
+    "eccentricity": 0.0006055606071612129,
+    "raan_rad": 0.3024714802619097,
+    "argument_rad": 6.166175104610023,
+    "anomaly_rad": 4.544906010292121
+  },
+  {
+    "satellite": "ood-017",
+    "split": "ood",
+    "semimajor_altitude_km": 954.5944826523887,
+    "inclination_deg": 92.37248662307285,
+    "eccentricity": 0.013655149468815539,
+    "raan_rad": 2.3572690069979245,
+    "argument_rad": 2.061704487534565,
+    "anomaly_rad": 4.964084807796181
+  },
+  {
+    "satellite": "ood-018",
+    "split": "ood",
+    "semimajor_altitude_km": 1045.4514301569516,
+    "inclination_deg": 90.28883801717626,
+    "eccentricity": 0.008253084436962283,
+    "raan_rad": 2.205560282967323,
+    "argument_rad": 6.096461114221448,
+    "anomaly_rad": 1.9763622685528965
+  },
+  {
+    "satellite": "ood-019",
+    "split": "ood",
+    "semimajor_altitude_km": 890.1980967946542,
+    "inclination_deg": 99.8757977602387,
+    "eccentricity": 0.013556104193206835,
+    "raan_rad": 4.034109811626801,
+    "argument_rad": 3.5174816639659316,
+    "anomaly_rad": 0.758916728803076
+  },
+  {
+    "satellite": "ood-020",
+    "split": "ood",
+    "semimajor_altitude_km": 877.1248589045497,
+    "inclination_deg": 101.98246857586093,
+    "eccentricity": 0.0020415716189908363,
+    "raan_rad": 5.907654578465061,
+    "argument_rad": 5.9523400950183065,
+    "anomaly_rad": 4.015290165133375
+  },
+  {
+    "satellite": "ood-021",
+    "split": "ood",
+    "semimajor_altitude_km": 890.6657276796806,
+    "inclination_deg": 103.8615669154209,
+    "eccentricity": 0.011963960928304424,
+    "raan_rad": 4.630641977364859,
+    "argument_rad": 0.8900176467274297,
+    "anomaly_rad": 3.8356623170568893
+  },
+  {
+    "satellite": "ood-022",
+    "split": "ood",
+    "semimajor_altitude_km": 1045.2052294611226,
+    "inclination_deg": 93.47718853480696,
+    "eccentricity": 0.003877715769959479,
+    "raan_rad": 2.811852475603081,
+    "argument_rad": 5.048581223786073,
+    "anomaly_rad": 0.6062422376581285
+  },
+  {
+    "satellite": "ood-023",
+    "split": "ood",
+    "semimajor_altitude_km": 1010.674472433446,
+    "inclination_deg": 98.64929352120973,
+    "eccentricity": 0.01063967210293091,
+    "raan_rad": 0.9688206097373462,
+    "argument_rad": 6.064637810347686,
+    "anomaly_rad": 0.9768193390477007
+  }
+]

@@ -1,0 +1,57 @@
+{
+  "config": {
+    "data_seed": 2026,
+    "seeds": [
+      11,
+      22,
+      33
+    ],
+    "horizons_s": [
+      300,
+      1800,
+      3600,
+      10800,
+      21600
+    ],
+    "train_satellites": 96,
+    "val_satellites": 24,
+    "test_satellites": 24,
+    "ood_satellites": 24,
+    "origins_per_satellite": 12,
+    "origin_spacing_s": 25200,
+    "epochs": 600,
+    "patience": 60,
+    "hidden": [
+      96,
+      96
+    ],
+    "rtol": 1e-10,
+    "atol": 1e-12,
+    "max_step_s": 90.0
+  },
+  "python": "3.12.14",
+  "dependencies": {
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "matplotlib": "3.11.2"
+  },
+  "convergence": [
+    {
+      "split": "test",
+      "max_position_difference_km": 4.706054783064069e-09
+    },
+    {
+      "split": "ood",
+      "max_position_difference_km": 2.9036230493847097e-09
+    }
+  ],
+  "sample_counts": {
+    "train": 1152,
+    "val": 288,
+    "test": 288,
+    "ood": 288
+  },
+  "duration_seconds": 910.158660700079,
+  "reference": "two-body + J2 + fixed exponential drag; synthetic, not operational truth"
+}

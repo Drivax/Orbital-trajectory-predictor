@@ -41,3 +41,14 @@ data/downloaded_*.txt
 # OS
 .DS_Store
 Thumbs.db
+
+# Controlled benchmark generated arrays and models
+/models/
+results/*.npz
+results/smoke/
+.pytest_cache/
+legacy/checkpoints/
+
+*.log
+legacy/results/*.html
+legacy/results/*.gif
